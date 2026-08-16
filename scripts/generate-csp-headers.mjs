@@ -48,6 +48,19 @@ const BASE_CSP_DIRECTIVES = [
   'upgrade-insecure-requests',
 ]
 
+// /creators/ is the one route with an approved cross-origin fetch: the
+// client-side featured-creators listing (GET /v1/public/featured). Widened
+// only for that route, and only when a real origin is configured at build
+// time — an unset origin must never silently widen the CSP to nothing in
+// particular, and every other route stays locked to 'self'.
+const ALERTS_API_ORIGIN = process.env.NEXT_PUBLIC_ALERTS_API_ORIGIN?.trim()
+if (ALERTS_API_ORIGIN && !/^https:\/\//.test(ALERTS_API_ORIGIN)) {
+  throw new Error(`NEXT_PUBLIC_ALERTS_API_ORIGIN must be an https:// origin, got: ${ALERTS_API_ORIGIN}`)
+}
+const ROUTE_CONNECT_SRC_OVERRIDES = ALERTS_API_ORIGIN
+  ? { '/creators/': `connect-src 'self' ${ALERTS_API_ORIGIN}` }
+  : {}
+
 function findHtmlFiles(dir, files = []) {
   for (const entry of readdirSync(dir)) {
     const full = join(dir, entry)
@@ -105,7 +118,12 @@ function main() {
     const route = filePathToRoute(file)
     const scriptSrc = hashes.length > 0 ? `script-src 'self' ${hashes.join(' ')}` : "script-src 'self'"
     totalHashes += hashes.length
-    const csp = [...BASE_CSP_DIRECTIVES.slice(0, 5), scriptSrc, ...BASE_CSP_DIRECTIVES.slice(5)].join('; ')
+    const directives = [...BASE_CSP_DIRECTIVES.slice(0, 5), scriptSrc, ...BASE_CSP_DIRECTIVES.slice(5)]
+    const connectSrcOverride = ROUTE_CONNECT_SRC_OVERRIDES[route]
+    const finalDirectives = connectSrcOverride
+      ? directives.map((directive) => (directive.startsWith('connect-src') ? connectSrcOverride : directive))
+      : directives
+    const csp = finalDirectives.join('; ')
     blocks.push([route, `  Content-Security-Policy: ${csp}`].join('\n'))
   }
 

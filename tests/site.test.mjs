@@ -118,3 +118,18 @@ test('generated _headers has a per-route CSP with no unsafe-inline and a global 
   assert.match(security, /^Contact: mailto:privacy@bharatstudio\.in$/m);
   assert.match(security, /^Canonical: https:\/\/bharatstudio\.in\/.well-known\/security\.txt$/m);
 });
+
+test('/creators ships the honest empty state by default, no fabricated creator rows, and connect-src stays self-only without a configured API origin', async () => {
+  // This test runs against a default build (no NEXT_PUBLIC_ALERTS_API_ORIGIN
+  // set) — see .env.example. If that ever changes for local/CI builds, this
+  // assertion is the guard against silently shipping a widened CSP or fake
+  // sample creators.
+  const html = await readFile(new URL('creators/index.html', root), 'utf8');
+  assert.match(html, /gallery goes live with the first cohort/i);
+  assert.doesNotMatch(html, /sample creator/i);
+
+  const headers = await readFile(new URL('_headers', root), 'utf8');
+  const creatorsBlock = headers.split('\n\n').find((block) => block.startsWith('/creators/\n'));
+  assert.ok(creatorsBlock, 'missing _headers block for /creators/');
+  assert.match(creatorsBlock, /connect-src 'self';/, 'connect-src must stay self-only when NEXT_PUBLIC_ALERTS_API_ORIGIN is unset');
+});
