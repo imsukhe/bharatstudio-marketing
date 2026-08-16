@@ -18,6 +18,15 @@
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 
+// The running Alerts web app's own origin (e.g. https://app.bharatstudio.in
+// in production, http://localhost:3101 in local dev) — set at build time.
+// "Get started" should take a visitor straight into the real product's
+// sign-in, not just to another page describing it. Falls back to the
+// existing /download/ chooser page when unset, so an unconfigured build
+// never ships a broken external link.
+const ALERTS_APP_ORIGIN = process.env.NEXT_PUBLIC_ALERTS_APP_ORIGIN?.trim()
+const GET_STARTED_HREF = ALERTS_APP_ORIGIN ? `${ALERTS_APP_ORIGIN}/login` : '/download/'
+
 const PRODUCT_LINKS = [
   { href: '/apps/alerts/', label: 'Alerts', hint: 'viewer support & overlays' },
   { href: '/apps/companion/', label: 'Companion', hint: 'web, mobile & desktop' },
@@ -98,7 +107,7 @@ export function Nav() {
           </nav>
 
           <div className="nav-right">
-            <Link href="/download/" className="nav-cta nav-desktop-flex">Get started</Link>
+            <a href={GET_STARTED_HREF} className="nav-cta nav-desktop-flex">Get started</a>
             <button
               type="button"
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
@@ -138,7 +147,7 @@ export function Nav() {
           <Link href="/support/" onClick={closeMenu} className="nav-mobile-link">Support</Link>
         </nav>
         <div className="nav-mobile-actions">
-          <Link href="/download/" onClick={closeMenu} className="nav-mobile-cta">Get started</Link>
+          <a href={GET_STARTED_HREF} onClick={closeMenu} className="nav-mobile-cta">Get started</a>
         </div>
       </div>
     </>

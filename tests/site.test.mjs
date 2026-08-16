@@ -133,3 +133,17 @@ test('/creators ships the honest empty state by default, no fabricated creator r
   assert.ok(creatorsBlock, 'missing _headers block for /creators/');
   assert.match(creatorsBlock, /connect-src 'self';/, 'connect-src must stay self-only when NEXT_PUBLIC_ALERTS_API_ORIGIN is unset');
 });
+
+test('"Get started" always links somewhere real — the Alerts app when configured, /download/ otherwise, never broken or empty', async () => {
+  // NEXT_PUBLIC_ALERTS_APP_ORIGIN is read by Next's own build pipeline (a
+  // real component prop, not a plain-Node script like the CSP generator),
+  // so unlike the /creators case above this genuinely varies with local
+  // .env.local state — this assertion is intentionally tolerant of both
+  // the configured and unconfigured shape, rather than asserting one
+  // fixed value that would flake between local dev and CI.
+  const html = await readFile(new URL('index.html', root), 'utf8');
+  const hrefMatch = /class="nav-cta nav-desktop-flex"[^>]*href="([^"]+)"/.exec(html) ?? /href="([^"]+)"[^>]*class="nav-cta nav-desktop-flex"/.exec(html);
+  assert.ok(hrefMatch, 'the "Get started" nav CTA must be present with an href');
+  const href = hrefMatch[1];
+  assert.ok(href === '/download/' || /^https?:\/\/[^/]+\/login$/.test(href), `unexpected "Get started" href: ${href}`);
+});
