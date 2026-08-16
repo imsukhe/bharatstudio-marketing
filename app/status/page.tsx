@@ -14,7 +14,7 @@ export default function StatusPage() {
     <main>
       <Nav />
 
-      <section className="section">
+      <header className="page-hero">
         <div className="container">
           <div className="eyebrow">System status</div>
           <h1>Know what is happening.</h1>
@@ -22,6 +22,11 @@ export default function StatusPage() {
             This public page will show current service health and maintenance notices after the
             production monitoring and incident process are enabled.
           </p>
+        </div>
+      </header>
+
+      <section className="section">
+        <div className="container">
           <div className="card-bezel status-callout">
             <div className="card-inner panel">
               <div className="label">Launch preparation</div>

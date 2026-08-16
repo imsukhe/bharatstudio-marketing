@@ -14,12 +14,24 @@ function fmt(n: number) {
   return '₹' + Math.round(n).toLocaleString('en-IN')
 }
 
+// BharatStudio's own paid tiers — matches the current approved /pricing
+// figures. Free isn't offered here since the calculator exists to compare
+// commission-based pricing against a flat subscription; Free has no
+// subscription fee to compare.
+const BSA_TIERS: { value: string; label: string; fee: number }[] = [
+  { value: 'pro', label: 'Pro (₹199/mo)', fee: 199 },
+  { value: 'creator', label: 'Creator (₹399/mo)', fee: 399 },
+  { value: 'studio', label: 'Studio (₹499/mo)', fee: 499 },
+]
+
 export function CommissionCalculator() {
   const [rate, setRate] = useState(10) // percent
   const [volume, setVolume] = useState(10000)
+  const [tier, setTier] = useState('pro')
 
   const sliderId = useId()
   const volumeId = useId()
+  const tierId = useId()
 
   // Other platform (generic, no competitor named)
   const commission = (volume * rate) / 100
@@ -28,10 +40,11 @@ export function CommissionCalculator() {
   const gatewayFee = volume * 0.02 // 2% UPI — identical in both columns
   const platformTotal = commission + gstOnCommission + platformFee + gatewayFee
 
-  // BharatStudio Pro
+  // BharatStudio — selected tier
   const bsaCommission = 0
   const bsaGstOnCommission = 0
-  const bsaFee = 199
+  const bsaFee = BSA_TIERS.find((t) => t.value === tier)?.fee ?? BSA_TIERS[0].fee
+  const bsaTierLabel = BSA_TIERS.find((t) => t.value === tier)?.label.split(' (')[0] ?? 'Pro'
   const bsaTotal = bsaFee + gatewayFee
 
   const savings = platformTotal - bsaTotal
@@ -83,11 +96,25 @@ export function CommissionCalculator() {
             />
           </div>
         </div>
+
+        <div className="calc-field">
+          <label htmlFor={tierId}>Your BharatStudio plan</label>
+          <select
+            id={tierId}
+            value={tier}
+            onChange={(e) => setTier(e.target.value)}
+            aria-label="BharatStudio plan to compare against"
+          >
+            {BSA_TIERS.map((t) => (
+              <option key={t.value} value={t.value}>{t.label}</option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="calc-results">
         <div className="calc-row-head">
-          <span></span><span>Other platform</span><span>BharatStudio Pro</span>
+          <span></span><span>Other platform</span><span>BharatStudio {bsaTierLabel}</span>
         </div>
         <div className="calc-row">
           <span>Commission</span>

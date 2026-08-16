@@ -31,7 +31,14 @@ function Cross({ warn }: { warn?: boolean }) {
 function CellContent({ v }: { v: CellVal }) {
   if (v === true) return <Check />
   if (v === false) return <Cross />
-  if (v === 'warn') return <Cross warn />
+  if (v === 'warn') {
+    return (
+      <span className="compare-warn">
+        <Cross warn />
+        <span className="compare-warn-label">Caution</span>
+      </span>
+    )
+  }
   return <span>{v}</span>
 }
 
@@ -56,6 +63,47 @@ export function CompareTable({ leftHead, rightHead = 'BharatStudio', rows }: {
               <td>{feature}</td>
               <td className="compare-col-center"><CellContent v={left} /></td>
               <td className="compare-col-center compare-col-right"><CellContent v={right} /></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+/*
+ * N-column variant of the same visual pattern, added so /pricing's plan
+ * comparison table (Free/Pro/Creator/Studio) shares one implementation with
+ * /compare instead of duplicating the markup and .comparison CSS a second
+ * time. CompareTable above is untouched — its three existing /compare call
+ * sites keep the exact left/right shape they always had, zero regression
+ * risk. Cell values are only centered when they render as an icon (true/
+ * false/'warn'); a plain string cell stays left-aligned, matching
+ * /pricing's original inline table exactly.
+ */
+export function MultiCompareTable({ firstHead = '', heads, rows }: {
+  firstHead?: string
+  heads: string[]
+  rows: { feature: string; values: CellVal[] }[]
+}) {
+  return (
+    <div className="table-wrap">
+      <table className="comparison">
+        <thead>
+          <tr>
+            <th>{firstHead}</th>
+            {heads.map((h) => <th key={h}>{h}</th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map(({ feature, values }) => (
+            <tr key={feature}>
+              <td>{feature}</td>
+              {values.map((v, i) => (
+                <td key={i} className={typeof v !== 'string' ? 'compare-col-center' : undefined}>
+                  <CellContent v={v} />
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>

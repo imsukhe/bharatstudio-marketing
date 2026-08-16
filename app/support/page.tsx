@@ -60,7 +60,7 @@ export default function SupportPage() {
               <div className="label">Privacy</div>
               <h3>Data concern</h3>
               <p>Access, correction, deactivation or privacy questions.</p>
-              <a href="mailto:privacy@bharatstudio.in" className="text-link">privacy@bharatstudio.in →</a>
+              <Link href="/legal/data-rights/" className="text-link">Data rights →</Link>
             </div>
           </article>
         </div>

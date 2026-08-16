@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { MultiCompareTable } from '@/components/CompareTable'
 
 export const metadata: Metadata = {
   title: 'BharatStudio pricing — Alerts with Companion access',
@@ -54,6 +55,10 @@ export default function PricingPage() {
             Every plan includes the core Alerts journey. Companion is the connected operational
             surface, with capabilities controlled by the current entitlement version.
           </p>
+          <p className="lede">
+            <strong>0% commission on every plan.</strong> BharatStudio charges a flat monthly
+            subscription, not a cut of what your viewers send you.
+          </p>
         </div>
       </header>
 
@@ -71,7 +76,7 @@ export default function PricingPage() {
                     <li key={f}><span className="check">✓</span> {f}</li>
                   ))}
                 </ul>
-                <Link href="/download/" className={featured ? 'btn-primary' : 'btn-ghost'}>{cta}</Link>
+                <Link href={`/download/?plan=${label.toLowerCase()}`} className={featured ? 'btn-primary' : 'btn-ghost'}>{cta}</Link>
               </article>
             ))}
           </div>
@@ -87,20 +92,11 @@ export default function PricingPage() {
             </div>
             <p>Payment and alert durability are platform-wide guarantees. Plan limits affect new configuration and presentation only.</p>
           </div>
-          <div className="table-wrap">
-            <table className="comparison">
-              <thead>
-                <tr><th>Capability</th><th>Free</th><th>Pro</th><th>Creator</th><th>Studio</th></tr>
-              </thead>
-              <tbody>
-                {COMPARISON_ROWS.map((row) => (
-                  <tr key={row[0]}>
-                    {row.map((cell, i) => <td key={i}>{cell}</td>)}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <MultiCompareTable
+            firstHead="Capability"
+            heads={['Free', 'Pro', 'Creator', 'Studio']}
+            rows={COMPARISON_ROWS.map(([feature, ...values]) => ({ feature, values }))}
+          />
         </div>
       </section>
 

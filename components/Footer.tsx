@@ -23,6 +23,7 @@ const LEGAL_LINKS = [
   { href: '/legal/terms/', label: 'Terms of Service' },
   { href: '/legal/privacy/', label: 'Privacy Policy' },
   { href: '/legal/refunds/', label: 'Refund Policy' },
+  { href: '/legal/data-rights/', label: 'Data Rights' },
   { href: '/legal/contact/', label: 'Contact & Support' },
 ]
 

@@ -59,14 +59,14 @@ export default function AlertsPage() {
               <div className="card-inner panel">
                 <div className="icon-box">✦</div>
                 <h3>Configurable alerts</h3>
-                <p>Choose approved styles, text, language, position, scale, motion and display timing.</p>
+                <p>Choose approved styles, text, language, position, scale, motion and display timing — including AI voice in 11 Indian languages, Lottie animation and 4 built-in themes (paid tiers).</p>
               </div>
             </article>
             <article className="card-bezel">
               <div className="card-inner panel">
                 <div className="icon-box">≋</div>
                 <h3>Durable queues</h3>
-                <p>Accepted alerts remain recoverable across disconnects, retries, display limits and worker failures.</p>
+                <p>Accepted alerts remain recoverable across disconnects, retries, display limits and worker failures — a 72-hour buffer auto-resyncs on reconnect.</p>
               </div>
             </article>
             <article className="card-bezel">
@@ -103,7 +103,7 @@ export default function AlertsPage() {
               <ul>
                 <li>Overlay sessions that can be rotated or revoked</li>
                 <li>Per-queue styles, timing and presentation rules</li>
-                <li>History, moderation and replay controls</li>
+                <li>History, moderation and replay controls, with a searchable ledger and CSV export</li>
                 <li>Browser-source setup built for OBS</li>
               </ul>
             </div>
@@ -123,18 +123,21 @@ export default function AlertsPage() {
           <div className="grid">
             <article className="card-bezel">
               <div className="card-inner panel">
+                <div className="icon-box">✦</div>
                 <h3>Full alert mode</h3>
                 <p>Show the selected animation, text, sound and optional TTS for moments you want the audience to see.</p>
               </div>
             </article>
             <article className="card-bezel">
               <div className="card-inner panel">
+                <div className="icon-box">◌</div>
                 <h3>Quiet / pro broadcast mode</h3>
                 <p>Keep an alert in the dashboard, show a subtle pill or require operator approval before it reaches the scene.</p>
               </div>
             </article>
             <article className="card-bezel">
               <div className="card-inner panel">
+                <div className="icon-box">≋</div>
                 <h3>Queue presentation</h3>
                 <p>Use FIFO by default, then configure one-by-one, stacked or aggregated presentation within your plan.</p>
               </div>

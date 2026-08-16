@@ -60,6 +60,14 @@ export default function LegalPage() {
               <Link href="/legal/contact/" className="text-link">View contacts →</Link>
             </div>
           </article>
+          <article className="card-bezel">
+            <div className="card-inner panel">
+              <div className="label">Privacy</div>
+              <h3>Data rights</h3>
+              <p>How to ask for access, correction, deactivation or retention questions.</p>
+              <Link href="/legal/data-rights/" className="text-link">Data rights →</Link>
+            </div>
+          </article>
         </div>
       </section>
 

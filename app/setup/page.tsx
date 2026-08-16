@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
 
@@ -56,6 +57,10 @@ export default function SetupPage() {
             <li>Test long display names, multiple queues and quiet/pro broadcast mode.</li>
             <li>Keep a recovery contact available during the first live session.</li>
           </ul>
+          <div className="actions">
+            <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
+            <Link href="/support/" className="btn-ghost">Need help? Contact support</Link>
+          </div>
         </div>
       </section>
 

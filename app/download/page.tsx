@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { PlanBanner } from './PlanBanner'
 
 export const metadata: Metadata = {
   title: 'Get BharatStudio — Alerts and Companion',
@@ -22,6 +24,13 @@ export default function DownloadPage() {
             Alerts is a web product. Companion adds web, mobile and optional desktop surfaces.
             Choose a path below and keep the same BharatStudio account.
           </p>
+          <Suspense fallback={null}>
+            <PlanBanner />
+          </Suspense>
+          <div className="actions">
+            <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
+            <Link href="/pricing/" className="btn-ghost">See pricing</Link>
+          </div>
         </div>
       </header>
 
@@ -47,10 +56,10 @@ export default function DownloadPage() {
           </article>
           <article className="card-bezel">
             <div className="card-inner panel">
-              <div className="icon-box">A</div>
+              <div className="icon-box">▹</div>
               <div className="label">Android</div>
               <h3>Companion for Android</h3>
-              <p>Use the companion app for authorised channel context and bounded operational actions.</p>
+              <p>Mobile availability, Play Store account and store-review status will be published with the release.</p>
               <span className="coming">Available at launch gate</span>
             </div>
           </article>
