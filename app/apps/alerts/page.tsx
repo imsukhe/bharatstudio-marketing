@@ -27,7 +27,7 @@ export default function AlertsPage() {
           </p>
           <div className="actions">
             <Link href="/setup/" className="btn-primary">Set up your overlay</Link>
-            <Link href="/pricing/" className="btn-ghost">Compare plans</Link>
+            <Link href="/pricing/" className="text-link">Compare plans →</Link>
           </div>
           <div className="metric-row">
             <div className="metric"><strong>₹10</strong><span>default tip floor, configurable by creator</span></div>
@@ -47,30 +47,30 @@ export default function AlertsPage() {
             </div>
             <p>Every part of the creator flow has a job—from the public tip page to what appears in the scene.</p>
           </div>
-          <div className="grid grid-four">
-            <article className="card-bezel">
-              <div className="card-inner panel">
+          <div className="bento-grid">
+            <article className="card-bezel bento-tile bento-tile--lg">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">₹</div>
                 <h3>Public tipping</h3>
                 <p>Give viewers a focused public page to support the creator with the approved payment flow.</p>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile bento-tile--wide">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">✦</div>
                 <h3>Configurable alerts</h3>
                 <p>Choose approved styles, text, language, position, scale, motion and display timing — including AI voice in 11 Indian languages, Lottie animation and 4 built-in themes (paid tiers).</p>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">≋</div>
                 <h3>Durable queues</h3>
                 <p>Accepted alerts remain recoverable across disconnects, retries, display limits and worker failures — a 72-hour buffer auto-resyncs on reconnect.</p>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">◌</div>
                 <h3>Quiet control</h3>
                 <p>Hold, moderate, suppress, replay or keep an alert off-screen while preserving its record.</p>
@@ -120,23 +120,23 @@ export default function AlertsPage() {
             </div>
             <p>Alerts supports the broadcast modes creators actually need—not every tip has to interrupt gameplay.</p>
           </div>
-          <div className="grid">
-            <article className="card-bezel">
-              <div className="card-inner panel">
+          <div className="bento-grid">
+            <article className="card-bezel bento-tile bento-tile--wide">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">✦</div>
                 <h3>Full alert mode</h3>
                 <p>Show the selected animation, text, sound and optional TTS for moments you want the audience to see.</p>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">◌</div>
                 <h3>Quiet / pro broadcast mode</h3>
                 <p>Keep an alert in the dashboard, show a subtle pill or require operator approval before it reaches the scene.</p>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">≋</div>
                 <h3>Queue presentation</h3>
                 <p>Use FIFO by default, then configure one-by-one, stacked or aggregated presentation within your plan.</p>

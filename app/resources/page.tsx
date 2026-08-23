@@ -24,15 +24,15 @@ export default function ResourcesPage() {
           </p>
           <div className="actions">
             <Link href="/setup/" className="btn-primary">Start with setup</Link>
-            <Link href="/docs/" className="btn-ghost">Browse docs</Link>
+            <Link href="/docs/" className="text-link">Browse docs →</Link>
           </div>
         </div>
       </header>
 
       <section className="section">
-        <div className="container grid grid-three">
-          <article className="card-bezel">
-            <div className="card-inner panel">
+        <div className="container bento-grid">
+          <article className="card-bezel bento-tile bento-tile--wide">
+            <div className="card-inner panel bento-tile-inner">
               <div className="icon-box">01</div>
               <div className="label">Learn</div>
               <h3>Creator docs</h3>
@@ -40,8 +40,8 @@ export default function ResourcesPage() {
               <Link href="/docs/" className="text-link">Read the docs →</Link>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile">
+            <div className="card-inner panel bento-tile-inner">
               <div className="icon-box">02</div>
               <div className="label">Launch</div>
               <h3>Setup guide</h3>
@@ -49,8 +49,8 @@ export default function ResourcesPage() {
               <Link href="/setup/" className="text-link">Set up Alerts →</Link>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile">
+            <div className="card-inner panel bento-tile-inner">
               <div className="icon-box">03</div>
               <div className="label">Know</div>
               <h3>Compatibility</h3>

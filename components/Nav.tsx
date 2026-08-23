@@ -31,8 +31,6 @@ const PRODUCT_LINKS = [
   { href: '/apps/alerts/', label: 'Alerts', hint: 'viewer support & overlays' },
   { href: '/apps/companion/', label: 'Companion', hint: 'web, mobile & desktop' },
   { href: '/features/', label: 'All features' },
-  { href: '/compare/', label: 'Compare', hint: 'vs manual & other tools' },
-  { href: '/creators/', label: 'Creators', hint: 'who uses BharatStudio' },
 ]
 
 const RESOURCE_LINKS = [
@@ -54,6 +52,23 @@ export function Nav() {
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   }, [closeMenu])
+
+  useEffect(() => {
+    // Close an open Products/Resources <details> dropdown when the click
+    // lands outside it. Runs during the bubble phase, before the browser's
+    // own toggle default-action fires on a <summary> — so clicking the
+    // currently-open dropdown's own summary (to close it) or a link inside
+    // it is left alone, and the `name="nav-menu-group"` exclusive-group
+    // attribute still governs switching between the two dropdowns.
+    const onDocumentClick = (e: MouseEvent) => {
+      const target = e.target as Node
+      document.querySelectorAll<HTMLDetailsElement>('details.nav-menu[open]').forEach((d) => {
+        if (!d.contains(target)) d.open = false
+      })
+    }
+    document.addEventListener('click', onDocumentClick)
+    return () => document.removeEventListener('click', onDocumentClick)
+  }, [])
 
   useEffect(() => {
     // Class toggle, not element.style — the CSP style-src 'self' with no
@@ -79,7 +94,7 @@ export function Nav() {
           </Link>
 
           <nav aria-label="Main navigation" className="nav-desktop">
-            <details className="nav-menu">
+            <details className="nav-menu" name="nav-menu-group">
               <summary>Products</summary>
               <div className="nav-dropdown">
                 <span className="nav-dropdown-eyebrow">Explore</span>
@@ -91,7 +106,9 @@ export function Nav() {
                 ))}
               </div>
             </details>
-            <details className="nav-menu">
+            <Link href="/pricing/" className="nav-link">Pricing</Link>
+            <Link href="/creators/" className="nav-link">Creators</Link>
+            <details className="nav-menu" name="nav-menu-group">
               <summary>Resources</summary>
               <div className="nav-dropdown">
                 <span className="nav-dropdown-eyebrow">Learn</span>
@@ -102,7 +119,7 @@ export function Nav() {
                 ))}
               </div>
             </details>
-            <Link href="/pricing/" className="nav-link">Pricing</Link>
+            <Link href="/compare/" className="nav-link">Compare</Link>
             <Link href="/support/" className="nav-link">Support</Link>
           </nav>
 
@@ -142,8 +159,10 @@ export function Nav() {
             </Link>
           ))}
           <span className="nav-mobile-group-label">More</span>
-          <Link href="/resources/blog/" onClick={closeMenu} className="nav-mobile-link">Blog</Link>
           <Link href="/pricing/" onClick={closeMenu} className="nav-mobile-link">Pricing</Link>
+          <Link href="/creators/" onClick={closeMenu} className="nav-mobile-link">Creators</Link>
+          <Link href="/resources/" onClick={closeMenu} className="nav-mobile-link">Resources</Link>
+          <Link href="/compare/" onClick={closeMenu} className="nav-mobile-link">Compare</Link>
           <Link href="/support/" onClick={closeMenu} className="nav-mobile-link">Support</Link>
         </nav>
         <div className="nav-mobile-actions">

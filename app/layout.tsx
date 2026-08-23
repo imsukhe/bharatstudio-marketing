@@ -37,6 +37,7 @@ export const metadata: Metadata = {
   description:
     'BharatStudio brings Alerts and Companion together for Indian creators: viewer support, broadcast overlays and authorised stream operations.',
   metadataBase: new URL('https://bharatstudio.in'),
+  icons: { icon: '/favicon.svg' },
 }
 
 export const viewport: Viewport = {

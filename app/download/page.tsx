@@ -29,15 +29,15 @@ export default function DownloadPage() {
           </Suspense>
           <div className="actions">
             <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
-            <Link href="/pricing/" className="btn-ghost">See pricing</Link>
+            <Link href="/pricing/" className="text-link">See pricing →</Link>
           </div>
         </div>
       </header>
 
       <section className="section">
-        <div className="container grid grid-four">
-          <article className="card-bezel">
-            <div className="card-inner panel">
+        <div className="container bento-grid">
+          <article className="card-bezel bento-tile bento-tile--lg">
+            <div className="card-inner panel bento-tile-inner">
               <div className="icon-box">A</div>
               <div className="label">Alerts web</div>
               <h3>Open Alerts</h3>
@@ -45,8 +45,8 @@ export default function DownloadPage() {
               <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile bento-tile--wide">
+            <div className="card-inner panel bento-tile-inner">
               <div className="icon-box">i</div>
               <div className="label">iOS</div>
               <h3>Companion for iPhone</h3>
@@ -54,8 +54,8 @@ export default function DownloadPage() {
               <span className="coming">Available at launch gate</span>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile">
+            <div className="card-inner panel bento-tile-inner">
               <div className="icon-box">▹</div>
               <div className="label">Android</div>
               <h3>Companion for Android</h3>
@@ -63,8 +63,8 @@ export default function DownloadPage() {
               <span className="coming">Available at launch gate</span>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile">
+            <div className="card-inner panel bento-tile-inner">
               <div className="icon-box">D</div>
               <div className="label">Windows &amp; macOS</div>
               <h3>Desktop helper</h3>
