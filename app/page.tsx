@@ -22,7 +22,7 @@ export default function HomePage() {
             </p>
             <div className="actions">
               <Link href="/apps/alerts/" className="btn-primary">Explore Alerts</Link>
-              <Link href="/apps/companion/" className="btn-ghost">Explore Companion</Link>
+              <Link href="/apps/companion/" className="text-link">Explore Companion →</Link>
             </div>
           </div>
           <div className="hero-visual-frame" aria-label="BharatStudio product preview">
@@ -42,7 +42,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-two">
             <article className="card-bezel">
-              <div className="card-inner panel">
+              <div className="card-inner panel panel--stretch">
                 <div className="icon-box">01</div>
                 <div className="label">BharatStudio Alerts</div>
                 <h3>Support that reaches the stream.</h3>
@@ -51,7 +51,7 @@ export default function HomePage() {
               </div>
             </article>
             <article className="card-bezel">
-              <div className="card-inner panel">
+              <div className="card-inner panel panel--stretch">
                 <div className="icon-box">02</div>
                 <div className="label">BharatStudio Companion</div>
                 <h3>Your broadcast, at a glance.</h3>
@@ -72,15 +72,18 @@ export default function HomePage() {
             </div>
             <p>Clear product boundaries keep your broadcast simple and your accepted records durable.</p>
           </div>
-          <div className="grid grid-four">
+          <div className="bento-grid">
             {[
-              { icon: '↗', title: 'Made for India', body: 'Creator-first pricing, INR support and an experience shaped for local languages and streaming habits.' },
-              { icon: '◎', title: 'Stay in control', body: 'Choose when alerts are loud, quiet, stacked, moderated or shown only to your operator view.' },
-              { icon: '▣', title: 'Browser-source ready', body: 'Use a scoped overlay URL in OBS. Rotate or revoke it from the authorised Alerts dashboard.' },
-              { icon: '✓', title: 'Durable by design', body: 'Plan, display and Companion limits never erase accepted payment or alert evidence.' },
-            ].map(({ icon, title, body }) => (
-              <article key={title} className="card-bezel feature-card">
-                <div className="card-inner panel">
+              { icon: '▣', title: 'Browser-source ready', body: 'Use a scoped overlay URL in OBS. Rotate or revoke it from the authorised Alerts dashboard.', span: 'lg' },
+              { icon: '✓', title: 'Durable by design', body: 'Plan, display and Companion limits never erase accepted payment or alert evidence.', span: 'wide' },
+              { icon: '↗', title: 'Made for India', body: 'Creator-first pricing, INR support and an experience shaped for local languages and streaming habits.', span: 'sm' },
+              { icon: '◎', title: 'Stay in control', body: 'Choose when alerts are loud, quiet, stacked, moderated or shown only to your operator view.', span: 'sm' },
+            ].map(({ icon, title, body, span }) => (
+              <article
+                key={title}
+                className={`card-bezel feature-card bento-tile${span === 'lg' ? ' bento-tile--lg' : span === 'wide' ? ' bento-tile--wide' : ''}`}
+              >
+                <div className="card-inner panel bento-tile-inner">
                   <div className="icon-box">{icon}</div>
                   <h3>{title}</h3>
                   <p>{body}</p>

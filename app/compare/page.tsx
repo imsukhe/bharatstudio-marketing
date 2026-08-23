@@ -159,37 +159,37 @@ export default function ComparePage() {
           <section aria-label="What makes us different" className="compare-section">
             <div className="label">What makes us different</div>
             <h2>Five things that don&apos;t change.</h2>
-            <div className="grid grid-two">
-              <article className="card-bezel">
-                <div className="card-inner panel">
+            <div className="bento-grid">
+              <article className="card-bezel bento-tile bento-tile--lg">
+                <div className="card-inner panel bento-tile-inner">
                   <div className="icon-box">₹</div>
                   <div className="label">0% commission, always.</div>
                   <p>Every rupee your viewer sends goes to your Razorpay account. We charge a subscription — a flat fee — not a cut of your earnings. A ₹1,000 tip on the Free tier still reaches you at ₹1,000 (minus Razorpay&apos;s standard gateway fee, which applies regardless of which tool you use).</p>
                 </div>
               </article>
-              <article className="card-bezel">
-                <div className="card-inner panel">
+              <article className="card-bezel bento-tile">
+                <div className="card-inner panel bento-tile-inner">
                   <div className="icon-box">◈</div>
                   <div className="label">Your payment account. Your money.</div>
                   <p>We use Razorpay&apos;s integration to create payment links on your behalf. BharatStudio never holds your funds, never processes settlements, and is never in the money flow. Razorpay settles directly to your bank account, on Razorpay&apos;s standard schedule.</p>
                 </div>
               </article>
-              <article className="card-bezel">
-                <div className="card-inner panel">
+              <article className="card-bezel bento-tile">
+                <div className="card-inner panel bento-tile-inner">
                   <div className="icon-box">⬡</div>
                   <div className="label">Built for India, not adapted for India.</div>
                   <p>AI voice in 11 Indian languages. Every payment method your viewers already use. Servers in India. Viewer consent at checkout. We didn&apos;t add these as features later — they were in the design from day one.</p>
                 </div>
               </article>
-              <article className="card-bezel">
-                <div className="card-inner panel">
+              <article className="card-bezel bento-tile">
+                <div className="card-inner panel bento-tile-inner">
                   <div className="icon-box">◎</div>
                   <div className="label">Transparent pricing. No checkout surprises.</div>
                   <p>Every tier, every feature, every restriction is on /pricing. We don&apos;t show you a lower price and reveal commission at checkout. What you read is what you pay — GST included in every displayed price.</p>
                 </div>
               </article>
-              <article className="card-bezel">
-                <div className="card-inner panel">
+              <article className="card-bezel bento-tile">
+                <div className="card-inner panel bento-tile-inner">
                   <div className="icon-box">↺</div>
                   <div className="label">You can leave whenever you want.</div>
                   <p>Your payment data stays in your Razorpay account. You can export your full tip history as CSV at any time. If you cancel, you have 30 days to download everything. We don&apos;t hold your data hostage.</p>
@@ -203,7 +203,7 @@ export default function ComparePage() {
             <p className="lede">Start on the Free tier. No card, no commitment. Upgrade when it makes sense.</p>
             <div className="actions">
               <Link href="/download/" className="btn-primary">Start for free →</Link>
-              <Link href="/pricing/" className="btn-ghost">See pricing →</Link>
+              <Link href="/pricing/" className="text-link">See pricing →</Link>
             </div>
           </section>
         </div>

@@ -79,7 +79,7 @@ export default function CreatorsPage() {
           <p className="lede footer-cta-lede">Set up your tip page and keep 100% of every tip you collect — 0% commission on every plan.</p>
           <div className="actions footer-cta-actions">
             <Link href="/download/" className="btn-primary">Get started free</Link>
-            <Link href="/pricing/" className="btn-ghost">See pricing</Link>
+            <Link href="/pricing/" className="text-link">See pricing →</Link>
           </div>
         </div>
       </section>

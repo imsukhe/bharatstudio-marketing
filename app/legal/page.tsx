@@ -27,7 +27,7 @@ export default function LegalPage() {
       </header>
 
       <section className="section">
-        <div className="container grid grid-four">
+        <div className="container grid grid-three">
           <article className="card-bezel">
             <div className="card-inner panel">
               <div className="label">Privacy</div>

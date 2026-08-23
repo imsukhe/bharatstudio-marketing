@@ -22,7 +22,7 @@ export default function NotFound() {
           </p>
           <div className="actions">
             <Link href="/" className="btn-primary">Back to home</Link>
-            <Link href="/support/" className="btn-ghost">Contact support</Link>
+            <Link href="/support/" className="text-link">Contact support →</Link>
           </div>
         </div>
       </section>

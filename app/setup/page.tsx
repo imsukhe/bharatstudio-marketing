@@ -59,7 +59,7 @@ export default function SetupPage() {
           </ul>
           <div className="actions">
             <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
-            <Link href="/support/" className="btn-ghost">Need help? Contact support</Link>
+            <Link href="/support/" className="text-link">Need help? Contact support →</Link>
           </div>
         </div>
       </section>

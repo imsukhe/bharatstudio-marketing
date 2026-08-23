@@ -24,39 +24,39 @@ export default function SupportPage() {
           </p>
           <div className="actions">
             <a href="mailto:support@bharatstudio.in" className="btn-primary">Contact support</a>
-            <Link href="/status/" className="btn-ghost">Check status</Link>
+            <Link href="/status/" className="text-link">Check status →</Link>
           </div>
         </div>
       </header>
 
       <section className="section">
-        <div className="container grid grid-four">
-          <article className="card-bezel">
-            <div className="card-inner panel">
+        <div className="container bento-grid">
+          <article className="card-bezel bento-tile bento-tile--lg">
+            <div className="card-inner panel bento-tile-inner">
               <div className="label">Setup</div>
               <h3>Alerts and OBS</h3>
               <p>Public tip page, overlay session, browser source, queue and test-alert guidance.</p>
               <Link href="/setup/" className="text-link">Open setup →</Link>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile bento-tile--wide">
+            <div className="card-inner panel bento-tile-inner">
               <div className="label">Companion</div>
               <h3>Connection and actions</h3>
               <p>Web, mobile, desktop, session, health and bounded control guidance.</p>
               <Link href="/docs/companion/" className="text-link">Open guide →</Link>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile">
+            <div className="card-inner panel bento-tile-inner">
               <div className="label">Payments</div>
               <h3>Payment or refund</h3>
               <p>Provide only public receipt/reference details and an approximate time.</p>
               <Link href="/legal/refunds/" className="text-link">Payment support →</Link>
             </div>
           </article>
-          <article className="card-bezel">
-            <div className="card-inner panel">
+          <article className="card-bezel bento-tile">
+            <div className="card-inner panel bento-tile-inner">
               <div className="label">Privacy</div>
               <h3>Data concern</h3>
               <p>Access, correction, deactivation or privacy questions.</p>

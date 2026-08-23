@@ -46,25 +46,27 @@ export default function AffiliatePage() {
     <main>
       <Nav />
 
+      <header className="page-hero">
+        <div className="container">
+          <div className="eyebrow">Referral programme</div>
+          <h1>
+            Refer a creator.<br /><span className="gradient-text">Both of you win.</span>
+          </h1>
+          <p className="lede">
+            Share your referral link. When the creator you refer activates a paid plan and
+            receives their first real viewer donation, you both get{' '}
+            <strong>1 free month — at the higher of your two plan tiers</strong>. Refer someone
+            going Creator; you get Creator free too.
+          </p>
+          <p className="muted">
+            Referral links are rolling out soon. Sign up below and we&apos;ll email your
+            personal link when it&apos;s ready.
+          </p>
+        </div>
+      </header>
+
       <section className="section">
         <div className="container">
-          <div className="compare-intro">
-            <div className="label">Referral programme</div>
-            <h1>
-              Refer a creator.<br /><span className="gradient-text">Both of you win.</span>
-            </h1>
-            <p className="lede">
-              Share your referral link. When the creator you refer activates a paid plan and
-              receives their first real viewer donation, you both get{' '}
-              <strong>1 free month — at the higher of your two plan tiers</strong>. Refer someone
-              going Creator; you get Creator free too.
-            </p>
-            <p className="muted">
-              Referral links are rolling out soon. Sign up below and we&apos;ll email your
-              personal link when it&apos;s ready.
-            </p>
-          </div>
-
           <section aria-label="Reward details" className="compare-section">
             <h2>The reward</h2>
             <div className="grid grid-two">
@@ -131,8 +133,8 @@ export default function AffiliatePage() {
               <p>Referral links are rolling out in batches. Create a free account, then email us — we&apos;ll send your personal link as soon as it&apos;s ready.</p>
               <div className="actions">
                 <Link href="/download/" className="btn-primary">Start free first →</Link>
-                <a href={`mailto:hello@bharatstudio.in?subject=${mailSubject}&body=${mailBody}`} className="btn-ghost">
-                  Register interest via email
+                <a href={`mailto:hello@bharatstudio.in?subject=${mailSubject}&body=${mailBody}`} className="text-link">
+                  Register interest via email →
                 </a>
               </div>
               <p className="compare-legend">You need a BharatStudio account to get a referral link. Create one free above first.</p>

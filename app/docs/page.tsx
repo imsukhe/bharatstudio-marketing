@@ -56,30 +56,30 @@ export default function DocsPage() {
               <h2>Find the right answer.</h2>
             </div>
           </div>
-          <div className="grid grid-four">
-            <article className="card-bezel">
-              <div className="card-inner panel">
+          <div className="bento-grid">
+            <article className="card-bezel bento-tile bento-tile--lg">
+              <div className="card-inner panel bento-tile-inner">
                 <h3>Overlay and OBS</h3>
                 <p>Create, rotate and revoke the scoped browser source.</p>
                 <Link href="/setup/" className="text-link">Read guide →</Link>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile bento-tile--wide">
+              <div className="card-inner panel bento-tile-inner">
                 <h3>Queues and styles</h3>
                 <p>Understand timing, stacking, moderation, quiet mode and plan options.</p>
                 <Link href="/apps/alerts/" className="text-link">See Alerts →</Link>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <h3>Plans and limits</h3>
                 <p>See which limits affect configuration and which guarantees never change.</p>
                 <Link href="/pricing/" className="text-link">Compare plans →</Link>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <h3>Recovery and support</h3>
                 <p>Use safe recovery steps and contact the right support path.</p>
                 <Link href="/support/" className="text-link">Get support →</Link>

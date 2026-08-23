@@ -28,7 +28,7 @@ export default function CompanionPage() {
           </p>
           <div className="actions">
             <Link href="/download/" className="btn-primary">Choose your surface</Link>
-            <Link href="/pricing/" className="btn-ghost">See included access</Link>
+            <Link href="/pricing/" className="text-link">See included access →</Link>
           </div>
         </div>
       </header>
@@ -42,9 +42,9 @@ export default function CompanionPage() {
             </div>
             <p>Companion is free with the Alerts package for the current launch model; plan entitlements control available capabilities.</p>
           </div>
-          <div className="grid grid-three">
-            <article className="card-bezel">
-              <div className="card-inner panel">
+          <div className="bento-grid">
+            <article className="card-bezel bento-tile bento-tile--wide">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">W</div>
                 <div className="label">Web console</div>
                 <h3>Second-screen operations.</h3>
@@ -52,8 +52,8 @@ export default function CompanionPage() {
                 <Link href="/docs/companion/" className="text-link">Web capabilities →</Link>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">M</div>
                 <div className="label">iOS &amp; Android</div>
                 <h3>Keep context close.</h3>
@@ -61,8 +61,8 @@ export default function CompanionPage() {
                 <Link href="/download/" className="text-link">Mobile availability →</Link>
               </div>
             </article>
-            <article className="card-bezel">
-              <div className="card-inner panel">
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">D</div>
                 <div className="label">Windows &amp; macOS</div>
                 <h3>A local helper, when needed.</h3>

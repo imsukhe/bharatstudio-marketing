@@ -29,7 +29,7 @@ export default function DataRightsPage() {
           <p>This page is an access route, not a promise that every record can be erased immediately. The current policy and applicable law govern the response.</p>
           <div className="actions">
             <a href="mailto:privacy@bharatstudio.in" className="btn-primary">Email privacy</a>
-            <Link href="/legal/privacy/" className="btn-ghost">Read privacy policy</Link>
+            <Link href="/legal/privacy/" className="text-link">Read privacy policy →</Link>
           </div>
         </div>
       </section>
