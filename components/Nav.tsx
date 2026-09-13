@@ -28,8 +28,9 @@ const ALERTS_APP_ORIGIN = process.env.NEXT_PUBLIC_ALERTS_APP_ORIGIN?.trim()
 const GET_STARTED_HREF = ALERTS_APP_ORIGIN ? `${ALERTS_APP_ORIGIN}/login` : '/download/'
 
 const PRODUCT_LINKS = [
-  { href: '/apps/alerts/', label: 'Alerts', hint: 'viewer support & overlays' },
-  { href: '/apps/companion/', label: 'Companion', hint: 'web, mobile & desktop' },
+  { href: '/alerts/', label: 'Alerts', hint: 'viewer support, overlays & Companion — account required' },
+  { href: '/stream/', label: 'Stream', hint: 'go live from your phone — no account' },
+  { href: '/mirror/', label: 'Mirror', hint: 'phone on your desktop — LAN-only, licence key' },
   { href: '/features/', label: 'All features' },
 ]
 

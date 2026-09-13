@@ -58,7 +58,7 @@ export default function SetupPage() {
             <li>Keep a recovery contact available during the first live session.</li>
           </ul>
           <div className="actions">
-            <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
+            <Link href="/alerts/" className="btn-primary">Open Alerts</Link>
             <Link href="/support/" className="text-link">Need help? Contact support →</Link>
           </div>
         </div>

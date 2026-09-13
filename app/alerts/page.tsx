@@ -2,12 +2,13 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { AlertCard } from '@/components/AlertCard'
 
 export const metadata: Metadata = {
   title: 'BharatStudio Alerts — Support that reaches the stream',
   description:
-    'BharatStudio Alerts gives creators a public tip page, configurable browser-source overlays, durable queues and calm stream controls.',
-  alternates: { canonical: 'https://bharatstudio.in/apps/alerts/' },
+    'BharatStudio Alerts gives creators a public tip page, configurable browser-source overlays, durable queues and calm stream controls. Companion access ships alongside it today.',
+  alternates: { canonical: 'https://bharatstudio.in/alerts/' },
 }
 
 export default function AlertsPage() {
@@ -15,25 +16,37 @@ export default function AlertsPage() {
     <main>
       <Nav />
 
-      <header className="page-hero">
-        <div className="container">
-          <div className="eyebrow">BharatStudio Alerts</div>
-          <h1>
-            Turn support into a <span className="gradient-text">stream moment.</span>
-          </h1>
-          <p className="lede">
-            A creator-direct tipping surface with a public tip page, browser-source overlay,
-            configurable queues and a dashboard built to keep every accepted alert accounted for.
-          </p>
-          <div className="actions">
-            <Link href="/setup/" className="btn-primary">Set up your overlay</Link>
-            <Link href="/pricing/" className="text-link">Compare plans →</Link>
+      <header className="hero">
+        <div className="container hero-grid">
+          <div>
+            <div className="eyebrow">BharatStudio Alerts</div>
+            <h1>
+              Every tip. Every rupee. <span className="gradient-text">Zero commission.</span>
+            </h1>
+            <p className="lede">
+              A creator-direct tipping surface with a public tip page, browser-source overlay,
+              configurable queues and a dashboard built to keep every accepted alert accounted for.
+              Requires a BharatStudio account.
+            </p>
+            <div className="actions">
+              <Link href="/setup/" className="btn-primary">Set up your overlay</Link>
+              <Link href="/pricing/" className="text-link">Compare plans →</Link>
+            </div>
+            <div className="metric-row">
+              <div className="metric"><strong>₹10</strong><span>default tip floor, configurable by creator</span></div>
+              <div className="metric"><strong>1 URL</strong><span>scoped browser-source overlay setup</span></div>
+              <div className="metric"><strong>4 plans</strong><span>Free, Pro, Creator and Studio</span></div>
+              <div className="metric"><strong>0 drops</strong><span>accepted records are not discarded by limits</span></div>
+            </div>
           </div>
-          <div className="metric-row">
-            <div className="metric"><strong>₹10</strong><span>default tip floor, configurable by creator</span></div>
-            <div className="metric"><strong>1 URL</strong><span>scoped browser-source overlay setup</span></div>
-            <div className="metric"><strong>4 plans</strong><span>Free, Pro, Creator and Studio</span></div>
-            <div className="metric"><strong>0 drops</strong><span>accepted records are not discarded by limits</span></div>
+          <div className="hero-visual-frame" aria-label="BharatStudio Alerts preview">
+            <AlertCard
+              donor="Aditya"
+              amount={2100}
+              message="bhai ye wala clip clip karo, viral hoga 😭"
+              visible={true}
+              showBadge={false}
+            />
           </div>
         </div>
       </header>
@@ -139,10 +152,60 @@ export default function AlertsPage() {
               <div className="card-inner panel bento-tile-inner">
                 <div className="icon-box">≋</div>
                 <h3>Queue presentation</h3>
-                <p>Use FIFO by default, then configure one-by-one, stacked or aggregated presentation within your plan.</p>
+                <p>Use FIFO by default, then configure stacked, pills, aggregated or priority presentation within your plan. Creator and Studio plans can also require operator approval before an alert reaches the scene.</p>
               </div>
             </article>
           </div>
+        </div>
+      </section>
+
+      <section className="section" id="companion">
+        <div className="container">
+          <div className="section-heading">
+            <div>
+              <div className="label">Works alongside Alerts</div>
+              <h2>Companion: the operational layer.</h2>
+            </div>
+            <p>
+              Companion is a separate product that works alongside Alerts. It gives authorised
+              people the context and controls they need while the stream is live, on web, iOS,
+              Android and an optional native desktop helper. Today, Companion access ships as
+              part of every Alerts plan, so anyone with Alerts already has it.
+            </p>
+          </div>
+          <div className="bento-grid">
+            <article className="card-bezel bento-tile bento-tile--wide">
+              <div className="card-inner panel bento-tile-inner">
+                <div className="icon-box">W</div>
+                <div className="label">Web console</div>
+                <h3>Second-screen operations.</h3>
+                <p>Recent alert activity, queue state, health, connection status, notification preferences, sessions and help — without opening a browser on the OBS machine.</p>
+                <Link href="/docs/companion/" className="text-link">Web capabilities →</Link>
+              </div>
+            </article>
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
+                <div className="icon-box">M</div>
+                <div className="label">iOS &amp; Android</div>
+                <h3>Keep context close.</h3>
+                <p>Authorised channel state, bounded actions, notifications and recovery guidance while you stream.</p>
+                <Link href="/download/" className="text-link">Mobile availability →</Link>
+              </div>
+            </article>
+            <article className="card-bezel bento-tile">
+              <div className="card-inner panel bento-tile-inner">
+                <div className="icon-box">D</div>
+                <div className="label">Windows &amp; macOS</div>
+                <h3>A local helper, when needed.</h3>
+                <p>Optional native helper for consented local integrations, secure OS credential storage and scoped OBS controls — not a general-purpose local API.</p>
+                <Link href="/compatibility/" className="text-link">Desktop requirements →</Link>
+              </div>
+            </article>
+          </div>
+          <p className="lede section-heading-note">
+            Companion can pause an approved queue or send a test alert — it cannot erase accepted
+            payment, webhook, queue or alert evidence. Alerts remains the durable source of truth.
+          </p>
         </div>
       </section>
 
@@ -158,10 +221,13 @@ export default function AlertsPage() {
           </article>
           <article className="card-bezel">
             <div className="card-inner panel">
-              <div className="label">Want more control?</div>
-              <h2>Companion is ready when you are.</h2>
-              <p>Use Companion as the connected operational surface for recent alerts, health, connection state and bounded actions.</p>
-              <Link href="/apps/companion/" className="text-link">Explore Companion →</Link>
+              <div className="label">Explore the rest of BharatStudio</div>
+              <h2>Streaming and mirroring, no account needed.</h2>
+              <p>BharatStudio Stream and BharatStudio Mirror are separate products with their own pricing — neither requires the account Alerts does.</p>
+              <div className="actions">
+                <Link href="/stream/" className="text-link">BharatStudio Stream →</Link>
+                <Link href="/mirror/" className="text-link">BharatStudio Mirror →</Link>
+              </div>
             </div>
           </article>
         </div>

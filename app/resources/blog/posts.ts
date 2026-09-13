@@ -35,7 +35,7 @@ Every Indian streamer we talked to had the same complaints.
 
 Their current setup was held together with duct tape. Some would keep a second phone open during stream, watching for bank notifications. Others had a friend in Discord who would paste tip details whenever they saw one come in. The most organised would check their payment history between games and shout out missed tips after the fact.
 
-The tools that existed were built for Twitch with card payments in the US. India was an afterthought — and it showed. UPI either didn't work or required a third-party workaround that broke every few months. Settlement would take days and go through currency conversion. And somehow the platforms doing this were still charging 5–8% on every tip.
+The tools that existed were built for the largest global streaming platform, with card payments in the US. India was an afterthought — and it showed. UPI either didn't work or required a third-party workaround that broke every few months. Settlement would take days and go through currency conversion. And somehow the platforms doing this were still charging 5–8% on every tip.
 
 **The commission issue was the one that bothered us most.** Indian streamers were creating real value — building communities, entertaining thousands, producing content for years — and giving a meaningful cut to a platform that didn't even build for them.
 
@@ -62,7 +62,7 @@ This is what we launched with. We're building the rest publicly.
     slug: 'obs-browser-source-setup-india',
     title: 'Setting up donation alerts in OBS — complete guide for Indian streamers',
     description:
-      'A step-by-step guide to adding BharatStudio Alerts to your stream. Works with OBS Studio, Streamlabs, and Streamyard.',
+      'A step-by-step guide to adding BharatStudio Alerts to your stream. Works with OBS Studio and other Browser Source-based broadcast tools.',
     category: 'Creator tips',
     publishedAt: '2026-07-22',
     readMinutes: 6,
@@ -105,12 +105,9 @@ The overlay is fully transparent. Place it on top of your game or camera layers 
 
 In your BharatStudio dashboard, click **Send test alert**. You should see the alert play in OBS within a second or two. If it doesn't show up, check that the Browser Source is unmuted in the OBS Audio Mixer.
 
-## Streamlabs and Streamyard
+## Other broadcast tools
 
-Both support Browser Source. The process is the same — find "Browser Source" in your scene editor, paste the URL, set to 1920×1080.
-
-In Streamlabs: **Scene Editor → + → Browser Source**.
-In Streamyard: **Overlays → Custom URL**.
+Most other broadcast and streaming software supports the same Browser Source (or "Custom URL overlay") concept. The process is the same — find that option in your scene or overlay editor, paste the URL, set to 1920×1080.
 
 ## Common issues
 
@@ -228,16 +225,16 @@ Each plan has a cap on how long a tipped message can be. Longer messages mean a 
 |---|---|
 | Free | 100 characters |
 | Pro | 150 characters |
-| Creator | 200 characters |
-| Studio | 300 characters |
+| Creator | 300 characters |
+| Studio | 500 characters |
 
 Viewers can type longer messages, but only the first N characters get read aloud. The full message is visible in your tip history.
 
-## Monthly voice minutes
+## Monthly voice allowance
 
-AI voice is compute-intensive, so each plan has a monthly allowance. Most streamers never hit it — a full-length Studio message uses about 300 characters out of a 100,000-character monthly allowance. The allowance resets on the 1st of each month.
+AI voice is compute-intensive, so each paid plan has a monthly character allowance: Pro gets 20,000 characters, Creator 40,000, and Studio 60,000. Most streamers never hit it — a full-length Studio message only uses up to 500 characters. The allowance resets on the 1st of each month.
 
-If you do run out, alerts still play but without voice — the animated card shows as normal, just silently.
+If you do run out, alerts keep playing with voice — they fall back to the same browser voice Free uses, instead of going silent.
     `.trim(),
   },
 ]

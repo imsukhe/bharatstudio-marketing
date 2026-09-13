@@ -6,7 +6,7 @@
  * (components/marketing/commission-calculator.tsx), rewritten with CSS
  * classes instead of inline styles. Uses generic labels only — does not
  * name any competitor. BharatStudio Pro fee (₹199) matches the current
- * approved /pricing figures.
+ * approved /pricing figures (master plan §3.1, 2026-09-02 — LOCKED).
  */
 import { useState, useId } from 'react'
 
@@ -21,7 +21,7 @@ function fmt(n: number) {
 const BSA_TIERS: { value: string; label: string; fee: number }[] = [
   { value: 'pro', label: 'Pro (₹199/mo)', fee: 199 },
   { value: 'creator', label: 'Creator (₹399/mo)', fee: 399 },
-  { value: 'studio', label: 'Studio (₹499/mo)', fee: 499 },
+  { value: 'studio', label: 'Studio (₹599/mo)', fee: 599 },
 ]
 
 export function CommissionCalculator() {

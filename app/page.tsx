@@ -11,18 +11,18 @@ export default function HomePage() {
       <header className="hero">
         <div className="container hero-grid">
           <div>
-            <div className="eyebrow">The creator control room for Bharat</div>
+            <div className="eyebrow">0% commission. Always.</div>
             <h1>
-              Make every live moment feel <span className="gradient-text">like yours.</span>
+              Keep every rupee <span className="gradient-text">your viewers send you.</span>
             </h1>
             <p className="lede">
-              BharatStudio connects the public support experience with the tools creators use
-              while they stream: Alerts for viewer support and Companion for authorised
-              broadcast operations.
+              No commission. No hidden fees. No checkout surprises. Alerts and Companion for
+              viewer support and broadcast operations. Stream and Mirror for going live and
+              mirroring your phone — no account needed for either.
             </p>
             <div className="actions">
-              <Link href="/apps/alerts/" className="btn-primary">Explore Alerts</Link>
-              <Link href="/apps/companion/" className="text-link">Explore Companion →</Link>
+              <Link href="/alerts/" className="btn-primary">Explore Alerts</Link>
+              <Link href="/features/" className="text-link">See every product →</Link>
             </div>
           </div>
           <div className="hero-visual-frame" aria-label="BharatStudio product preview">
@@ -35,28 +35,37 @@ export default function HomePage() {
         <div className="container">
           <div className="section-heading">
             <div>
-              <div className="label">One brand. Two products.</div>
+              <div className="label">One brand. Three products.</div>
               <h2>Everything has a clear job.</h2>
             </div>
-            <p>Start with the part of BharatStudio you need today. Add the other surface when it makes your setup better.</p>
+            <p>Start with the part of BharatStudio you need today. Alerts and Companion require a BharatStudio account; Stream and Mirror don't.</p>
           </div>
-          <div className="grid grid-two">
+          <div className="grid grid-three">
             <article className="card-bezel">
               <div className="card-inner panel panel--stretch">
                 <div className="icon-box">01</div>
                 <div className="label">BharatStudio Alerts</div>
                 <h3>Support that reaches the stream.</h3>
-                <p>Creator-direct tipping, a public tip page, browser-source overlays, configurable queues, moderation and history.</p>
-                <Link href="/apps/alerts/" className="text-link">Explore Alerts →</Link>
+                <p>Creator-direct tipping, a public tip page, browser-source overlays, configurable queues, moderation and history. Companion access ships alongside every plan today. Account required.</p>
+                <Link href="/alerts/" className="text-link">Explore Alerts →</Link>
               </div>
             </article>
-            <article className="card-bezel">
+            <article className="card-bezel" data-product="stream">
               <div className="card-inner panel panel--stretch">
                 <div className="icon-box">02</div>
-                <div className="label">BharatStudio Companion</div>
-                <h3>Your broadcast, at a glance.</h3>
-                <p>Web, iOS, Android and optional native desktop surfaces for authorised state, operations and consented local controls.</p>
-                <Link href="/apps/companion/" className="text-link">Explore Companion →</Link>
+                <div className="label">BharatStudio Stream</div>
+                <h3>Go live from your phone.</h3>
+                <p>Mobile live streaming with its own pricing. No BharatStudio account needed.</p>
+                <Link href="/stream/" className="text-link">Explore Stream →</Link>
+              </div>
+            </article>
+            <article className="card-bezel" data-product="mirror">
+              <div className="card-inner panel panel--stretch">
+                <div className="icon-box">03</div>
+                <div className="label">BharatStudio Mirror</div>
+                <h3>Your phone on your desktop.</h3>
+                <p>LAN-only screen mirroring with a local licence key. No account, no cloud.</p>
+                <Link href="/mirror/" className="text-link">Explore Mirror →</Link>
               </div>
             </article>
           </div>
@@ -112,7 +121,7 @@ export default function HomePage() {
               <h2>Keep the broadcast in view.</h2>
               <p>See recent activity, health, connection state and server-authorised controls across the surfaces that fit your setup.</p>
               <div className="actions">
-                <Link href="/apps/companion/" className="btn-ghost">Meet Companion</Link>
+                <Link href="/alerts/#companion" className="btn-ghost">Meet Companion</Link>
               </div>
             </div>
           </article>

@@ -44,6 +44,34 @@
   --dur-enter:    480ms;
 }
 
+/*
+ * Per-product accent scoping (master plan §2.10/§2.11 item 5).
+ * One extra token, `--color-accent`, aliased to the existing `--color-gold`
+ * by default (Alerts keeps gold, it's the flagship). A page opts a section
+ * of the tree into a different product hue by setting `data-product` on an
+ * ancestor element (see app/(product)/*\/page.tsx) — every existing rule
+ * that used to hardcode `--color-gold` for a brand-accent mark now reads
+ * `--color-accent` instead, so the same components/spacing/type system
+ * repaint in the product's hue without any new design language.
+ * Shared chrome (Nav, Footer, legal pages) is intentionally left on
+ * `--color-gold` directly — per §2.10 "share everything else" — the accent
+ * swap applies to in-page marks only, not the site-wide chrome.
+ */
+:root {
+  --color-accent:      var(--color-gold);
+  --color-accent-dim:  var(--color-gold-dim);
+}
+
+[data-product="stream"] {
+  --color-accent:      #FF3D6E;
+  --color-accent-dim:  rgba(255, 61, 110, 0.12);
+}
+
+[data-product="mirror"] {
+  --color-accent:      #4FD1E8;
+  --color-accent-dim:  rgba(79, 209, 232, 0.12);
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -417,11 +445,12 @@ code, .tabular {
  * Page/section layout — shared template every page uses.
  * ══════════════════════════════════════════════════════════════════════════ */
 .container { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
-.label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-gold); margin-bottom: 6px; }
-.eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); }
-.eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-gold); }
-.gradient-text { background: linear-gradient(120deg, #fff 12%, #cbd5e1 52%, #F7C948 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.label { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 6px; }
+.eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); }
+.eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-accent); }
+.gradient-text { background: linear-gradient(120deg, #fff 12%, #cbd5e1 52%, var(--color-accent) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .lede { max-width: 640px; color: var(--color-mktg-muted); font-size: clamp(1rem, 1.4vw, 1.15rem); line-height: 1.75; }
+.section-heading-note { margin-top: 24px; }
 
 .hero { padding: 88px 0 64px; }
 .hero-grid { display: grid; grid-template-columns: minmax(0,1.05fr) minmax(340px,0.95fr); align-items: center; gap: 56px; }
@@ -496,7 +525,7 @@ code, .tabular {
   margin-top: auto;
   align-self: flex-start;
 }
-.icon-box { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; margin-bottom: 14px; border-radius: 9px; background: var(--color-gold-dim); color: var(--color-gold); font-family: var(--font-display); font-weight: 700; font-size: 14px; }
+.icon-box { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; margin-bottom: 14px; border-radius: 9px; background: var(--color-accent-dim); color: var(--color-accent); font-family: var(--font-display); font-weight: 700; font-size: 14px; }
 
 .metric-row { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 36px; padding-top: 28px; border-top: 1px solid var(--color-mktg-border); }
 .metric strong { display: block; font-family: var(--font-display); font-size: 22px; color: var(--color-mktg-text); }

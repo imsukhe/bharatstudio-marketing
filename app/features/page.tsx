@@ -2,10 +2,11 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Nav } from '@/components/Nav'
 import { Footer } from '@/components/Footer'
+import { AlertCard } from '@/components/AlertCard'
 
 export const metadata: Metadata = {
-  title: 'BharatStudio features — Alerts and Companion',
-  description: 'Explore the BharatStudio Alerts and Companion product surfaces for creators.',
+  title: 'BharatStudio Alerts features',
+  description: 'Explore BharatStudio Alerts and Companion, the connected surface creators pair with it.',
   alternates: { canonical: 'https://bharatstudio.in/features/' },
 }
 
@@ -36,17 +37,35 @@ export default function FeaturesPage() {
     <main>
       <Nav />
 
-      <header className="page-hero">
-        <div className="container">
-          <div className="eyebrow">Product map</div>
-          <h1>Two products. One calmer broadcast.</h1>
-          <p className="lede">
-            Alerts handles viewer support and on-screen delivery. Companion gives authorised
-            people the context and controls they need while the stream is live.
-          </p>
-          <div className="actions">
-            <Link href="/pricing/" className="btn-primary">See pricing</Link>
-            <Link href="/compare/" className="text-link">Compare plans →</Link>
+      <header className="hero">
+        <div className="container hero-grid">
+          <div>
+            <div className="eyebrow">BharatStudio Alerts</div>
+            <h1>One product. <span className="gradient-text">Zero commission.</span></h1>
+            <p className="lede">
+              Alerts handles viewer support and on-screen delivery. Companion is a separate
+              product that works alongside Alerts, giving authorised people the context and
+              controls they need while the stream is live. Today, Companion access ships as part
+              of every Alerts plan, so anyone on Alerts already has it.
+            </p>
+            <p className="lede">
+              Looking for BharatStudio Stream or BharatStudio Mirror? Those are separate products
+              with their own pages — see <Link href="/stream/" className="text-link">Stream</Link> and{' '}
+              <Link href="/mirror/" className="text-link">Mirror</Link>.
+            </p>
+            <div className="actions">
+              <Link href="/pricing/" className="btn-primary">See pricing</Link>
+              <Link href="/compare/" className="text-link">Compare plans →</Link>
+            </div>
+          </div>
+          <div className="hero-visual-frame" aria-label="BharatStudio Alerts preview">
+            <AlertCard
+              donor="Priya"
+              amount={701}
+              message="itni der se dekh rahi hu, finally sub ho gayi 🎉"
+              visible={true}
+              showBadge={false}
+            />
           </div>
         </div>
       </header>
@@ -84,7 +103,7 @@ export default function FeaturesPage() {
               <div className="label">Companion</div>
               <h2>The operational layer.</h2>
             </div>
-            <p>Companion is included with the Alerts package for the current model, with capabilities controlled by plan entitlements.</p>
+            <p>Companion is a separate product that works alongside Alerts; today, access ships as part of every Alerts plan, with capabilities controlled by plan entitlements.</p>
           </div>
           <div className="bento-grid">
             {COMPANION_FEATURES.map(({ icon, title, body, span }) => (

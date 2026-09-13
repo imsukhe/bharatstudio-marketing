@@ -19,7 +19,9 @@ export default function DownloadPage() {
       <header className="page-hero">
         <div className="container">
           <div className="eyebrow">Choose your surface</div>
-          <h1>Start where your broadcast starts.</h1>
+          <h1>
+            Go live. <span className="gradient-text">Zero commission.</span>
+          </h1>
           <p className="lede">
             Alerts is a web product. Companion adds web, mobile and optional desktop surfaces.
             Choose a path below and keep the same BharatStudio account.
@@ -28,7 +30,7 @@ export default function DownloadPage() {
             <PlanBanner />
           </Suspense>
           <div className="actions">
-            <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
+            <Link href="/alerts/" className="btn-primary">Open Alerts</Link>
             <Link href="/pricing/" className="text-link">See pricing →</Link>
           </div>
         </div>
@@ -42,7 +44,7 @@ export default function DownloadPage() {
               <div className="label">Alerts web</div>
               <h3>Open Alerts</h3>
               <p>Configure your public tip page, queues, overlay and creator settings in the web dashboard.</p>
-              <Link href="/apps/alerts/" className="btn-primary">Open Alerts</Link>
+              <Link href="/alerts/" className="btn-primary">Open Alerts</Link>
             </div>
           </article>
           <article className="card-bezel bento-tile bento-tile--wide">

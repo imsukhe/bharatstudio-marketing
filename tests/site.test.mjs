@@ -15,7 +15,7 @@ import test from 'node:test';
 const root = new URL('../out/', import.meta.url);
 
 const PAGES = [
-  'index.html', 'apps/alerts/index.html', 'apps/companion/index.html',
+  'index.html', 'alerts/index.html', 'stream/index.html', 'mirror/index.html',
   'features/index.html', 'pricing/index.html', 'download/index.html',
   'compatibility/index.html', 'docs/index.html', 'docs/companion/index.html',
   'setup/index.html', 'resources/index.html', 'resources/blog/index.html',

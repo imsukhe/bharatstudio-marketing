@@ -8,3 +8,6 @@ coverage/
 .env.*
 !.env.example
 npm-debug.log*
+
+# Build artefact, regenerated on every typecheck.
+tsconfig.tsbuildinfo

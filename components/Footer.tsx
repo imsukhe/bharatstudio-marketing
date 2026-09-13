@@ -8,8 +8,9 @@
 import Link from 'next/link'
 
 const PRODUCT_LINKS = [
-  { href: '/apps/alerts/', label: 'Alerts' },
-  { href: '/apps/companion/', label: 'Companion' },
+  { href: '/alerts/', label: 'Alerts' },
+  { href: '/stream/', label: 'Stream' },
+  { href: '/mirror/', label: 'Mirror' },
   { href: '/features/', label: 'All features' },
   { href: '/compare/', label: 'Compare' },
   { href: '/creators/', label: 'Creators' },

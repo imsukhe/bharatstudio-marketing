@@ -68,7 +68,7 @@ export default function DocsPage() {
               <div className="card-inner panel bento-tile-inner">
                 <h3>Queues and styles</h3>
                 <p>Understand timing, stacking, moderation, quiet mode and plan options.</p>
-                <Link href="/apps/alerts/" className="text-link">See Alerts →</Link>
+                <Link href="/alerts/" className="text-link">See Alerts →</Link>
               </div>
             </article>
             <article className="card-bezel bento-tile">

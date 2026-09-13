@@ -1,0 +1,4 @@
+# Cloudflare Pages redirects — master plan §2.11 item 4:
+# /apps/alerts/ -> /alerts/, /apps/companion/ folded into /alerts/ as a section.
+/apps/alerts/       /alerts/            301
+/apps/companion/    /alerts/#companion  301

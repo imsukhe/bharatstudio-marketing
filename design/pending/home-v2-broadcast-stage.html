@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BharatStudio — Full redesign preview (Home) v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ══════════════════════════════════════════════════════════════════
+   * TOKENS — copied verbatim from app/globals.css. Colors/fonts unchanged.
+   * v2: layout system rebuilt — bigger scale, real hierarchy, a stage
+   * visual instead of a boxed widget, HUD/broadcast texture cues.
+   * ══════════════════════════════════════════════════════════════════ */
+  :root {
+    --color-gold: #F7C948;
+    --color-gold-hover: #e8b800;
+    --color-gold-dim: rgba(247, 201, 72, 0.12);
+    --color-cta: #3B7EF6;
+    --color-cta-hover: #2563eb;
+    --color-success: #22c55e;
+
+    --color-mktg-bg: #0A0A0F;
+    --color-mktg-surface: #111118;
+    --color-mktg-border: #1E1E2A;
+    --color-mktg-text: #E8E8F0;
+    --color-mktg-muted: #8888A0;
+
+    --font-display: 'Rajdhani', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-base: 260ms;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background-color: var(--color-mktg-bg); color: var(--color-mktg-text);
+    font-family: var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 700; text-wrap: balance; margin: 0; }
+  p { margin: 0; }
+  a { text-decoration: none; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  .review-banner {
+    position: sticky; top: 0; z-index: 100;
+    background: linear-gradient(90deg, #3B7EF6, #F7C948);
+    color: #06060a; font-family: var(--font-mono); font-size: 12px; font-weight: 700;
+    text-align: center; padding: 8px 16px; letter-spacing: 0.02em;
+  }
+
+  .grain {
+    position: fixed; inset: 0; z-index: 40; opacity: 0.03; pointer-events: none; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+  /* ── Nav ──────────────────────────────────────────────────────── */
+  .nav-wrap { position: sticky; top: 20px; z-index: 50; padding: 0 16px; }
+  .nav-pill {
+    max-width: 1200px; margin: 0 auto; background-color: rgba(10,10,15,0.82);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 100px; border: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+    height: 60px; display: flex; align-items: center; padding: 0 8px 0 8px; justify-content: space-between; gap: 16px;
+  }
+  .nav-pill::before {
+    content: ""; position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(247,201,72,0.5), transparent);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 9px; padding-left: 14px; }
+  .nav-logo-mark { width: 9px; height: 9px; background: var(--color-gold); transform: rotate(45deg); flex-shrink: 0; }
+  .nav-logo-text { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--color-mktg-text); letter-spacing: -0.01em; }
+  .nav-logo-accent { color: var(--color-gold); }
+  .nav-links { display: none; gap: 2px; }
+  .nav-link { font-size: 14px; color: var(--color-mktg-muted); padding: 8px 14px; border-radius: 100px; transition: color .18s, background-color .18s; }
+  .nav-link:hover { color: var(--color-mktg-text); background: rgba(255,255,255,0.05); }
+  .nav-cta { font-family: var(--font-display); font-weight: 700; font-size: 14px; color: #06060a; background-color: var(--color-gold); padding: 11px 22px; border-radius: 100px; white-space: nowrap; }
+  @media (min-width: 900px) { .nav-links { display: flex; } }
+
+  /* ── Buttons ──────────────────────────────────────────────────── */
+  .btn-primary {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    font-family: var(--font-display); font-weight: 700; font-size: 18px; color: #fff;
+    background-color: var(--color-cta); padding: 18px 36px; border-radius: 100px;
+    white-space: nowrap; cursor: pointer; border: none;
+    box-shadow: 0 14px 36px rgba(59,126,246,0.4);
+    transition: transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-spring), background-color .18s;
+  }
+  .btn-primary:hover { background-color: var(--color-cta-hover); transform: translateY(-2px); box-shadow: 0 18px 44px rgba(59,126,246,0.55); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 15px; font-weight: 600; color: var(--color-mktg-text); border: 1px solid var(--color-mktg-border);
+    padding: 17px 30px; border-radius: 100px; background: rgba(255,255,255,0.02); transition: border-color .2s, transform .2s;
+  }
+  .btn-ghost:hover { border-color: rgba(247,201,72,0.5); transform: translateY(-1px); }
+
+  /* ── Hero v2 — full-bleed, centered, oversized ───────────────────*/
+  .hero-v2 { position: relative; padding: 108px 0 0; overflow: hidden; }
+  .hero-glow-bg { position: absolute; inset: 0; z-index: -2; pointer-events: none; }
+  .hero-glow-bg::before, .hero-glow-bg::after { content: ""; position: absolute; border-radius: 50%; filter: blur(130px); }
+  .hero-glow-bg::before { width: 720px; height: 720px; top: -280px; left: 50%; margin-left: -560px; background: radial-gradient(circle, rgba(247,201,72,0.17) 0%, transparent 70%); }
+  .hero-glow-bg::after { width: 760px; height: 760px; top: -220px; left: 50%; margin-left: 40px; background: radial-gradient(circle, rgba(59,126,246,0.15) 0%, transparent 70%); }
+  .hero-scanlines {
+    position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5;
+    background-image: repeating-linear-gradient(180deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 3px);
+    -webkit-mask-image: linear-gradient(180deg, black, transparent 85%);
+    mask-image: linear-gradient(180deg, black, transparent 85%);
+  }
+
+  .hero-badges { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px;
+    font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: #06060a;
+    background: var(--color-gold); padding: 8px 16px 8px 11px; border-radius: 100px;
+  }
+  .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #06060a; animation: pulse 1.6s ease-in-out infinite; }
+
+  .hero-mega {
+    text-align: center; font-size: clamp(3.1rem, 8.4vw, 7.6rem); line-height: 0.92; letter-spacing: -0.04em;
+    margin: 0 auto 28px; max-width: 1080px; text-transform: uppercase;
+  }
+  .hero-mega .grad {
+    background: linear-gradient(120deg, #fff 8%, #cbd5e1 44%, var(--color-gold) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero-lede2 { max-width: 620px; margin: 0 auto 38px; text-align: center; font-size: clamp(1.05rem, 1.6vw, 1.22rem); line-height: 1.7; color: var(--color-mktg-muted); }
+  .hero-actions2 { display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; }
+
+  .hero-strip { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin: 34px 0 64px; }
+  .hero-strip-chip {
+    display: flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 11.5px; color: var(--color-mktg-muted);
+    border: 1px solid var(--color-mktg-border); border-radius: 100px; padding: 7px 14px 7px 10px; background: rgba(255,255,255,0.02);
+  }
+  .hero-strip-chip .sdot { width: 5px; height: 5px; border-radius: 50%; }
+  .hero-strip-chip .sdot.live { background: var(--color-success); box-shadow: 0 0 0 2px rgba(34,197,94,0.2); }
+  .hero-strip-chip .sdot.dev { background: var(--color-gold); }
+  .hero-strip-chip .sdot.roadmap { background: var(--color-mktg-muted); }
+  .hero-strip-chip strong { color: var(--color-mktg-text); font-weight: 600; }
+
+  /* ── Broadcast stage — the hero visual, full width ───────────────*/
+  .stage-wrap { padding-bottom: 0; }
+  .stage-frame {
+    position: relative; border: 1px solid var(--color-mktg-border); border-radius: 22px 22px 0 0;
+    background: #0c0c12; box-shadow: 0 40px 120px rgba(0,0,0,0.55); overflow: hidden;
+  }
+  .stage-corner { position: absolute; width: 26px; height: 26px; border-color: rgba(247,201,72,0.55); z-index: 3; pointer-events: none; }
+  .stage-corner.tl { top: 14px; left: 14px; border-top: 2px solid; border-left: 2px solid; }
+  .stage-corner.tr { top: 14px; right: 14px; border-top: 2px solid; border-right: 2px solid; }
+  .stage-chrome { display: flex; align-items: center; gap: 8px; padding: 14px 20px; border-bottom: 1px solid var(--color-mktg-border); background: rgba(255,255,255,0.02); position: relative; z-index: 2; }
+  .stage-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.14); }
+  .stage-chrome-label { margin-left: 10px; font-family: var(--font-mono); font-size: 12px; color: var(--color-mktg-muted); }
+  .stage-live-badge {
+    margin-left: auto; display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-weight: 700;
+    font-size: 11px; letter-spacing: 0.06em; color: #fff; background: rgba(224,82,82,0.18); border: 1px solid rgba(224,82,82,0.4);
+    padding: 5px 11px; border-radius: 100px;
+  }
+  .stage-live-badge .rdot { width: 6px; height: 6px; border-radius: 50%; background: #E05252; animation: pulse 1.3s ease-in-out infinite; }
+
+  .stage-canvas {
+    position: relative; aspect-ratio: 16/8.4; overflow: hidden;
+    background:
+      radial-gradient(ellipse 60% 50% at 15% 20%, rgba(59,126,246,0.16), transparent 60%),
+      radial-gradient(ellipse 55% 55% at 85% 75%, rgba(247,201,72,0.13), transparent 60%),
+      linear-gradient(155deg, #14141d 0%, #0a0a0f 60%);
+  }
+  .stage-canvas::before {
+    content: ""; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 42px 42px; opacity: 0.5;
+  }
+  .stage-webcam {
+    position: absolute; top: 26px; left: 26px; width: 128px; height: 128px; border-radius: 16px;
+    background: linear-gradient(160deg, #1b1b26, #0e0e15); border: 1px solid rgba(255,255,255,0.09);
+    display: flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 10px;
+    color: rgba(136,136,160,0.5); letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .stage-alert-slot { position: absolute; left: 30px; bottom: 64px; width: min(380px, 42%); }
+  @media (max-width: 700px) { .stage-alert-slot { width: 78%; left: 20px; } .stage-webcam { width: 84px; height: 84px; } }
+
+  .alert-card { position: relative; width: 100%; }
+  .alert-card-glow { position: absolute; inset: -20px; border-radius: 30px; background: radial-gradient(ellipse at 50% 80%, rgba(247,201,72,0.3) 0%, transparent 70%); }
+  .alert-card-body {
+    position: relative; background: rgba(14,14,23,0.92); backdrop-filter: blur(6px); border: 1px solid rgba(247,201,72,0.55);
+    border-radius: 16px; padding: 20px 22px 18px; overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(247,201,72,0.14), 0 0 44px rgba(247,201,72,0.18), 0 18px 44px rgba(0,0,0,0.7);
+  }
+  .alert-card-shimmer {
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent 5%, rgba(247,201,72,0.9) 30%, #fff 50%, rgba(247,201,72,0.9) 70%, transparent 95%);
+  }
+  .alert-card-row { display: flex; align-items: flex-start; gap: 13px; }
+  .alert-card-avatar {
+    width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(247,201,72,0.35), rgba(247,201,72,0.1));
+    border: 1.5px solid rgba(247,201,72,0.65); display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-weight: 700; font-size: 16px; color: var(--color-gold);
+  }
+  .alert-card-main { flex: 1; min-width: 0; }
+  .alert-card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+  .alert-card-donor { font-family: var(--font-display); font-weight: 700; font-size: 16px; color: #fff; }
+  .alert-card-amount { font-family: var(--font-mono); font-weight: 700; font-size: 21px; color: var(--color-gold); text-shadow: 0 0 20px rgba(247,201,72,0.55); }
+  .alert-card-message { font-size: 13.5px; color: rgba(232,232,240,0.75); line-height: 1.5; }
+
+  .stage-ticker { position: absolute; left: 0; right: 0; bottom: 0; border-top: 1px solid rgba(255,255,255,0.06); background: rgba(6,6,10,0.75); backdrop-filter: blur(4px); overflow: hidden; padding: 10px 0; }
+  .stage-ticker-track { display: flex; gap: 10px; width: max-content; animation: scroll-left 26s linear infinite; }
+  .stage-chip { display: flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); white-space: nowrap; font-size: 12px; }
+  .stage-chip .amt { font-family: var(--font-mono); font-weight: 700; color: var(--color-gold); }
+  .stage-chip .who { font-weight: 600; color: #fff; }
+  .stage-chip .msg { color: rgba(232,232,240,0.55); }
+  @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  .stage-caption { text-align: center; font-size: 11.5px; color: var(--color-mktg-muted); padding: 14px 0 60px; border: 1px solid var(--color-mktg-border); border-top: none; border-radius: 0 0 22px 22px; background: rgba(17,17,24,0.4); }
+
+  /* ── Diagonal section seam ────────────────────────────────────── */
+  .seam { height: 64px; background: var(--color-mktg-bg); position: relative; margin-top: -1px; }
+  .seam::before { content: ""; position: absolute; inset: 0; background: rgba(17,17,24,0.5); clip-path: polygon(0 100%, 100% 0, 100% 100%); }
+
+  /* ── Section shell ────────────────────────────────────────────── */
+  .section { padding: 100px 0; }
+  .section-alt { background: rgba(17,17,24,0.5); border-block: 1px solid var(--color-mktg-border); }
+  .section-tight { padding: 88px 0; }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 18px; font-family: var(--font-mono); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-gold); }
+  .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--color-gold); }
+  .section-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 48px; flex-wrap: wrap; }
+  .section-heading h2 { font-size: clamp(2.1rem, 3.6vw, 3.2rem); letter-spacing: -0.03em; }
+  .section-heading > p { max-width: 420px; color: var(--color-mktg-muted); font-size: 15px; line-height: 1.65; }
+
+  /* ── Suite — asymmetric, hierarchy over equal cards ──────────────*/
+  .suite-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 18px; }
+  @media (max-width: 900px) { .suite-grid { grid-template-columns: 1fr; } }
+  .status-chip {
+    display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10.5px;
+    font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px;
+  }
+  .status-chip.live { color: var(--color-success); background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); }
+  .status-chip.dev { color: var(--color-gold); background: var(--color-gold-dim); border: 1px solid rgba(247,201,72,0.3); }
+  .status-chip.roadmap { color: var(--color-mktg-muted); background: rgba(255,255,255,0.04); border: 1px solid var(--color-mktg-border); }
+  .status-chip .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .status-chip.live .dot { animation: pulse 1.8s ease-in-out infinite; }
+
+  .card-bezel { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 20px; padding: 2px; transition: border-color var(--dur-base), transform var(--dur-base) var(--ease-spring), box-shadow var(--dur-base) var(--ease-spring); }
+  .card-bezel:hover { border-color: rgba(247,201,72,0.35); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.45); }
+  .card-inner { background: var(--color-mktg-surface); border-radius: 18px; padding: 30px; height: 100%; box-shadow: inset 0 1px 1px rgba(255,255,255,0.04); }
+
+  .suite-featured { height: 100%; }
+  .suite-featured .card-inner { display: flex; flex-direction: column; height: 100%; min-height: 340px; }
+  .suite-featured-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  .suite-featured h3 { font-size: clamp(1.7rem, 2.6vw, 2.3rem); letter-spacing: -0.02em; margin-bottom: 10px; }
+  .suite-featured p { color: var(--color-mktg-muted); font-size: 15px; line-height: 1.7; max-width: 440px; margin-bottom: 24px; }
+  .suite-featured-stats { display: flex; gap: 28px; margin-top: auto; padding-top: 22px; border-top: 1px solid var(--color-mktg-border); }
+  .suite-featured-stats strong { display: block; font-family: var(--font-display); font-size: 26px; letter-spacing: -0.02em; }
+  .suite-featured-stats span { font-size: 11.5px; color: var(--color-mktg-muted); }
+
+  .suite-stack { display: flex; flex-direction: column; gap: 18px; height: 100%; }
+  .suite-row .card-inner { display: flex; align-items: flex-start; gap: 16px; padding: 22px 24px; }
+  .suite-row-icon { width: 42px; height: 42px; border-radius: 12px; background: var(--color-gold-dim); color: var(--color-gold); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 700; font-size: 17px; flex-shrink: 0; }
+  .suite-row-body { flex: 1; min-width: 0; }
+  .suite-row-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 4px; }
+  .suite-row h4 { font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+  .suite-row p { font-size: 13px; color: var(--color-mktg-muted); line-height: 1.55; }
+
+  /* ── Comparison band ──────────────────────────────────────────── */
+  .compare-band { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: 22px; overflow: hidden; border: 1px solid var(--color-mktg-border); }
+  @media (max-width: 760px) { .compare-band { grid-template-columns: 1fr; } }
+  .compare-col { padding: 48px 44px; }
+  .compare-col.bad { background: rgba(255,255,255,0.015); }
+  .compare-col.good { background: linear-gradient(160deg, rgba(247,201,72,0.09), rgba(17,17,24,0.6)); position: relative; }
+  .compare-col.good::before { content:""; position:absolute; inset:0; border: 1px solid rgba(247,201,72,0.25); border-radius: inherit; pointer-events:none; }
+  .compare-label { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px; }
+  .compare-col.bad .compare-label { color: var(--color-mktg-muted); }
+  .compare-col.good .compare-label { color: var(--color-gold); }
+  .compare-figure { font-family: var(--font-display); font-size: clamp(3.2rem, 6.4vw, 4.8rem); font-weight: 700; line-height: 1; letter-spacing: -0.03em; margin-bottom: 12px; }
+  .compare-col.bad .compare-figure { color: rgba(232,232,240,0.32); text-decoration: line-through; text-decoration-color: rgba(224,82,82,0.5); text-decoration-thickness: 4px; }
+  .compare-col.good .compare-figure { color: var(--color-gold); text-shadow: 0 0 44px rgba(247,201,72,0.4); }
+  .compare-col p.detail { color: var(--color-mktg-muted); font-size: 14.5px; line-height: 1.6; max-width: 340px; }
+
+  /* ── Feature bento (Alerts deep-dive) ─────────────────────────── */
+  .bento-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); grid-auto-rows: minmax(200px, auto); gap: 16px; }
+  @media (max-width: 900px) { .bento-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 560px) { .bento-grid { grid-template-columns: 1fr; } }
+  .bento-tile { grid-column: span 1; }
+  .bento-tile--lg { grid-column: span 2; grid-row: span 2; }
+  .bento-tile--wide { grid-column: span 2; }
+  @media (max-width: 900px) { .bento-tile--lg, .bento-tile--wide { grid-column: span 2; grid-row: span 1; } }
+  @media (max-width: 560px) { .bento-tile--lg, .bento-tile--wide { grid-column: span 1; } }
+  .card-inner.flexcol { display: flex; flex-direction: column; }
+  .icon-box { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; margin-bottom: 16px; border-radius: 11px; background: var(--color-gold-dim); color: var(--color-gold); font-family: var(--font-display); font-weight: 700; font-size: 16px; }
+  .bento-tile--lg .icon-box { width: 52px; height: 52px; font-size: 21px; }
+  .card-inner h3 { font-size: 18px; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .bento-tile--lg .card-inner h3 { font-size: clamp(1.5rem, 2.3vw, 1.9rem); }
+  .card-inner p { color: var(--color-mktg-muted); font-size: 14px; line-height: 1.65; flex: 1; }
+
+  /* ── OBS step strip — compact, since the hero stage already proved it ── */
+  .obs-strip { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+  @media (max-width: 760px) { .obs-strip { grid-template-columns: 1fr; } }
+  .obs-strip .card-inner { padding: 26px; }
+  .obs-step-num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: var(--color-gold-dim); border: 1px solid rgba(247,201,72,0.3); color: var(--color-gold); font-family: var(--font-mono); font-weight: 700; font-size: 13px; margin-bottom: 14px; }
+  .obs-strip h4 { font-size: 15.5px; margin-bottom: 6px; font-family: var(--font-sans); font-weight: 600; }
+  .obs-strip p { font-size: 13.5px; color: var(--color-mktg-muted); line-height: 1.6; }
+
+  /* ── Pricing teaser ───────────────────────────────────────────── */
+  .price-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 16px; }
+  @media (max-width: 900px) { .price-strip { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 560px) { .price-strip { grid-template-columns: 1fr; } }
+  .price-mini { position: relative; border: 1px solid var(--color-mktg-border); border-radius: 18px; padding: 26px 22px; background: var(--color-mktg-surface); }
+  .price-mini.featured { border-color: rgba(247,201,72,0.45); background: linear-gradient(165deg, rgba(247,201,72,0.08), var(--color-mktg-surface) 55%); }
+  .price-mini .ribbon { position: absolute; top: -11px; left: 22px; padding: 4px 12px; border-radius: 100px; background: var(--color-gold); color: #06060a; font-family: var(--font-mono); font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .price-mini .tier-name { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-mktg-muted); margin-bottom: 10px; }
+  .price-mini .tier-price { font-family: var(--font-display); font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .price-mini .tier-price small { font-size: 13px; font-weight: 400; color: var(--color-mktg-muted); }
+  .price-mini .tier-note { font-size: 12.5px; color: var(--color-mktg-muted); line-height: 1.5; }
+
+  /* ── Footer CTA ───────────────────────────────────────────────── */
+  .footer-cta { padding: 120px 0; text-align: center; position: relative; overflow: hidden; }
+  .footer-cta::before { content:""; position:absolute; inset:0; background: radial-gradient(ellipse at 50% 0%, rgba(247,201,72,0.12), transparent 60%); pointer-events:none; }
+  .footer-cta h2 { font-size: clamp(2.4rem, 5vw, 4.6rem); letter-spacing: -0.035em; margin: 0 auto 18px; max-width: 760px; position: relative; }
+  .footer-cta p { max-width: 520px; margin: 0 auto 34px; color: var(--color-mktg-muted); font-size: 16px; line-height: 1.65; position: relative; }
+  .footer-cta-actions { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; position: relative; }
+
+  .site-footer-mini { border-top: 1px solid var(--color-mktg-border); padding: 32px 0; text-align: center; }
+  .site-footer-mini p { font-size: 12.5px; color: var(--color-mktg-muted); }
+
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring); }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+  <div class="review-banner">PREVIEW v2 — same brand tokens (gold / blue / near-black · Rajdhani / DM Sans / JetBrains Mono) · structurally rebuilt, not just recolored · not wired into the live site</div>
+  <div class="grain"></div>
+
+  <div class="nav-wrap">
+    <nav class="nav-pill">
+      <a href="#" class="nav-logo">
+        <span class="nav-logo-mark"></span>
+        <span class="nav-logo-text">Bharat<span class="nav-logo-accent">Studio</span></span>
+      </a>
+      <div class="nav-links">
+        <a class="nav-link" href="#">Products</a>
+        <a class="nav-link" href="#">Pricing</a>
+        <a class="nav-link" href="#">Creators</a>
+        <a class="nav-link" href="#">Resources</a>
+        <a class="nav-link" href="#">Compare</a>
+        <a class="nav-link" href="#">Support</a>
+      </div>
+      <a class="nav-cta" href="#">Get started</a>
+    </nav>
+  </div>
+
+  <header class="hero-v2">
+    <div class="hero-glow-bg"></div>
+    <div class="hero-scanlines"></div>
+    <div class="container">
+      <div class="hero-badges">
+        <span class="hero-eyebrow"><span class="live-dot"></span>One account. Every stream tool.</span>
+      </div>
+      <h1 class="hero-mega">Go live. Get paid.<br><span class="grad">Own the moment.</span></h1>
+      <p class="hero-lede2">
+        BharatStudio is the toolkit built for Indian streamers — Alerts for tips that keep 100%
+        of every rupee, Companion for operations in your pocket, and a growing suite built to
+        replace the five apps you're stitching together today.
+      </p>
+      <div class="hero-actions2">
+        <a class="btn-primary" href="#">Start free with Alerts →</a>
+        <a class="btn-ghost" href="#">See the whole suite ↓</a>
+      </div>
+      <div class="hero-strip">
+        <span class="hero-strip-chip"><span class="sdot live"></span>Alerts — <strong>live</strong></span>
+        <span class="hero-strip-chip"><span class="sdot live"></span>Companion — <strong>live</strong></span>
+        <span class="hero-strip-chip"><span class="sdot dev"></span>Stream — <strong>in development</strong></span>
+        <span class="hero-strip-chip"><span class="sdot roadmap"></span>Streamer — <strong>roadmap</strong></span>
+      </div>
+    </div>
+
+    <div class="stage-wrap container">
+      <div class="stage-frame reveal">
+        <span class="stage-corner tl"></span><span class="stage-corner tr"></span>
+        <div class="stage-chrome">
+          <span class="stage-dot"></span><span class="stage-dot"></span><span class="stage-dot"></span>
+          <span class="stage-chrome-label">Browser Source — overlay.bharatstudio.in/live</span>
+          <span class="stage-live-badge"><span class="rdot"></span>LIVE</span>
+        </div>
+        <div class="stage-canvas">
+          <div class="stage-webcam">CAM</div>
+          <div class="stage-alert-slot">
+            <div class="alert-card">
+              <div class="alert-card-glow"></div>
+              <div class="alert-card-body">
+                <div class="alert-card-shimmer"></div>
+                <div class="alert-card-row">
+                  <div class="alert-card-avatar">K</div>
+                  <div class="alert-card-main">
+                    <div class="alert-card-head">
+                      <span class="alert-card-donor">KamalKing</span>
+                      <span class="alert-card-amount">₹2,000</span>
+                    </div>
+                    <p class="alert-card-message">Legend stream. Teri fans from Delhi 🔥</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stage-ticker">
+            <div class="stage-ticker-track" id="stageTicker"></div>
+          </div>
+        </div>
+      </div>
+      <p class="stage-caption reveal">This is the real, live Alerts overlay rendered exactly as it appears on stream — not a mockup.</p>
+    </div>
+  </header>
+
+  <section class="section section-tight" id="suite-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow">The suite</div>
+          <h2>Four tools.<br>One BharatStudio account.</h2>
+        </div>
+        <p>Alerts and Companion are live today. Stream and Streamer are how we replace the rest of your setup.</p>
+      </div>
+      <div class="suite-grid reveal">
+        <article class="suite-featured card-bezel">
+          <div class="card-inner">
+            <div class="suite-featured-top">
+              <span class="status-chip live"><span class="dot"></span>Live now</span>
+              <div class="icon-box" style="margin:0;">₹</div>
+            </div>
+            <h3>Alerts</h3>
+            <p>Public tip page, OBS-ready overlay, durable queues and 4 built-in themes with AI voice in 11 Indian languages — 0% commission on every plan, including Free.</p>
+            <div class="suite-featured-stats">
+              <div><strong>0%</strong><span>commission</span></div>
+              <div><strong>₹0</strong><span>to start</span></div>
+              <div><strong>72h</strong><span>resync buffer</span></div>
+            </div>
+          </div>
+        </article>
+        <div class="suite-stack">
+          <article class="suite-row card-bezel">
+            <div class="card-inner">
+              <div class="suite-row-icon">C</div>
+              <div class="suite-row-body">
+                <div class="suite-row-head"><h4>Companion</h4><span class="status-chip live"><span class="dot"></span>Live</span></div>
+                <p>Web, iOS and Android console for activity, health and bounded controls. Included with Alerts.</p>
+              </div>
+            </div>
+          </article>
+          <article class="suite-row card-bezel">
+            <div class="card-inner">
+              <div class="suite-row-icon">S</div>
+              <div class="suite-row-body">
+                <div class="suite-row-head"><h4>Stream</h4><span class="status-chip dev"><span class="dot"></span>In dev</span></div>
+                <p>Mobile-first live streaming to YouTube, Twitch, Facebook Live and Kick — no PC, no capture card. iOS in build, Android next.</p>
+              </div>
+            </div>
+          </article>
+          <article class="suite-row card-bezel">
+            <div class="card-inner">
+              <div class="suite-row-icon">M</div>
+              <div class="suite-row-body">
+                <div class="suite-row-head"><h4>Streamer</h4><span class="status-chip roadmap"><span class="dot"></span>Roadmap</span></div>
+                <p>Mirror your iPhone straight to Windows and stream it like a native source. Windows first, iOS as the mirror source.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="compare-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow">Alerts · the honest comparison</div>
+          <h2>Most tipping tools take a cut.<br>Ours doesn't.</h2>
+        </div>
+        <p>No commission tier, no "pro plan to unlock 0%" trick — every Alerts plan, including Free, keeps 100% of every tip.</p>
+      </div>
+      <div class="compare-band reveal">
+        <div class="compare-col bad">
+          <div class="compare-label">Typical alert / tipping tool</div>
+          <div class="compare-figure">Cut taken</div>
+          <p class="detail">Many creator tools take a percentage of every tip before it reaches you, on top of the payment provider's own fee.</p>
+        </div>
+        <div class="compare-col good">
+          <div class="compare-label">BharatStudio Alerts</div>
+          <div class="compare-figure">0%</div>
+          <p class="detail">We never take a cut of what your viewers send. Every rupee, on every plan — Free included — goes to your account.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="features-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow">Alerts, up close</div>
+          <h2>Built for the moment,<br>not just the dashboard.</h2>
+        </div>
+        <p>Clear product boundaries keep your broadcast simple and your accepted records durable.</p>
+      </div>
+      <div class="bento-grid reveal">
+        <article class="bento-tile bento-tile--lg card-bezel">
+          <div class="card-inner flexcol">
+            <div class="icon-box">✦</div>
+            <h3>4 built-in alert themes, AI voice in 11 Indian languages</h3>
+            <p>Choose approved styles, text, language, position, scale, motion and timing. Lottie animation and TTS voice on paid tiers — configured once, fires every time.</p>
+          </div>
+        </article>
+        <article class="bento-tile bento-tile--wide card-bezel">
+          <div class="card-inner flexcol">
+            <div class="icon-box">◈</div>
+            <h3>Nothing gets dropped.</h3>
+            <p>Disconnects, worker retries and display limits don't erase accepted evidence — a 72-hour buffer auto-resyncs the moment you reconnect.</p>
+          </div>
+        </article>
+        <article class="bento-tile card-bezel">
+          <div class="card-inner flexcol">
+            <div class="icon-box">▣</div>
+            <h3>One OBS URL</h3>
+            <p>A single scoped browser-source overlay. Rotate or revoke it anytime from the dashboard.</p>
+          </div>
+        </article>
+        <article class="bento-tile card-bezel">
+          <div class="card-inner flexcol">
+            <div class="icon-box">◌</div>
+            <h3>Quiet mode</h3>
+            <p>Hold, moderate or replay an alert without ever discarding its record.</p>
+          </div>
+        </article>
+        <article class="bento-tile card-bezel">
+          <div class="card-inner flexcol">
+            <div class="icon-box">↗</div>
+            <h3>Made for India</h3>
+            <p>INR-native, local-language voice, pricing shaped for creators here — not ported from a US price sheet.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="obs-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow">Alerts · works with your scene</div>
+          <h2>You already saw it work.<br>Here's the setup.</h2>
+        </div>
+        <p>The stage above is the actual overlay — full styling, sound and TTS included, no extension required.</p>
+      </div>
+      <div class="obs-strip reveal">
+        <div class="card-bezel"><div class="card-inner"><div class="obs-step-num">1</div><h4>Create an overlay session</h4><p>Generate a scoped URL from the Alerts dashboard.</p></div></div>
+        <div class="card-bezel"><div class="card-inner"><div class="obs-step-num">2</div><h4>Add as a Browser Source</h4><p>Paste it into OBS — size auto-fits your scene.</p></div></div>
+        <div class="card-bezel"><div class="card-inner"><div class="obs-step-num">3</div><h4>Go live</h4><p>Alerts render themselves. Rotate the URL anytime.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="pricing-section">
+    <div class="container">
+      <div class="section-heading reveal">
+        <div>
+          <div class="eyebrow">Alerts pricing</div>
+          <h2>Start free.<br>Scale when you're ready.</h2>
+        </div>
+        <p>Every tier keeps 0% commission — higher plans unlock more configuration, not a lower cut. Companion is included; Stream and Streamer pricing will publish closer to their launch.</p>
+      </div>
+      <div class="price-strip reveal">
+        <div class="price-mini">
+          <div class="tier-name">Free</div>
+          <div class="tier-price">₹0<small>/mo</small></div>
+          <p class="tier-note">Public tip page, one overlay, 0% commission. Everything you need to start.</p>
+        </div>
+        <div class="price-mini featured">
+          <div class="ribbon">Most popular</div>
+          <div class="tier-name">Pro</div>
+          <div class="tier-price">₹199<small>/mo</small></div>
+          <p class="tier-note">More themes, AI voice, priority delivery.</p>
+        </div>
+        <div class="price-mini">
+          <div class="tier-name">Creator</div>
+          <div class="tier-price">₹399<small>/mo</small></div>
+          <p class="tier-note">Full theme library, advanced queues, CSV export.</p>
+        </div>
+        <div class="price-mini">
+          <div class="tier-name">Studio</div>
+          <div class="tier-price">₹499<small>/mo</small></div>
+          <p class="tier-note">Everything, for creators running a full production setup.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-cta" id="footer-cta-section">
+    <div class="container">
+      <h2>Start with Alerts.<br>Grow into the whole suite.</h2>
+      <p>No commission, no card required to start, no lock-in. Companion's included — Stream and Streamer are on the way.</p>
+      <div class="footer-cta-actions">
+        <a class="btn-primary" href="#">Start free with Alerts →</a>
+        <a class="btn-ghost" href="#">See the whole suite</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="site-footer-mini"><div class="container"><p>© BharatStudio · Preview build for internal design review only</p></div></div>
+
+  <script>
+    var sample = [
+      { who: 'Rohan', amt: '₹501', msg: 'Op gameplay bhai 🔥' },
+      { who: 'Priya', amt: '₹200', msg: 'Best stream today! ❤️' },
+      { who: 'ArjunGG', amt: '₹1,001', msg: 'Keep grinding! Love from Pune 💪' },
+      { who: 'Siddharth', amt: '₹51', msg: 'First tip ever! GG' },
+      { who: 'Aditya', amt: '₹2,100', msg: 'viral hoga bhai 😭' },
+      { who: 'Neha', amt: '₹300', msg: 'Sub ho gayi finally 🎉' },
+    ];
+    var track = document.getElementById('stageTicker');
+    var html = '';
+    for (var r = 0; r < 3; r++) {
+      sample.forEach(function (s) {
+        html += '<div class="stage-chip"><span class="who">' + s.who + '</span><span class="amt">' + s.amt + '</span><span class="msg">' + s.msg + '</span></div>';
+      });
+    }
+    track.innerHTML = html;
+
+    var els = document.querySelectorAll('.reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  </script>
+
+</body>
+</html>

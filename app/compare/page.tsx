@@ -11,8 +11,9 @@ import { CommissionCalculator } from '@/components/CommissionCalculator'
  * classes instead of inline styles. D-C053: no competitor names in any
  * rendered HTML. The "other platforms" price range below is corrected from
  * the legacy source's stale ₹199–₹449 to this repo's current approved
- * /pricing figures (₹199–₹499) — everything else is ported verbatim,
- * including the existing hedged/pending-review language.
+ * /pricing figures (₹199–₹599, master plan §3.1, 2026-09-02 — LOCKED) —
+ * everything else is ported verbatim, including the existing
+ * hedged/pending-review language.
  */
 export const metadata: Metadata = {
   title: 'Compare donation alert tools — BharatStudio',
@@ -113,7 +114,7 @@ export default function ComparePage() {
               leftHead="Other platforms (common)"
               rows={[
                 { feature: 'Commission on tips', left: '2–8% per tip †', right: '0% on every tier' },
-                { feature: 'Monthly subscription', left: '₹500–₹2,999/month or USD equivalent', right: '₹199–₹499/month (GST inclusive)' },
+                { feature: 'Monthly subscription', left: '₹500–₹2,999/month or USD equivalent', right: '₹199–₹599/month (GST inclusive)' },
                 { feature: 'AI voice in Indian languages', left: false, right: '11 Indian languages with Indian accents' },
                 { feature: 'Payment methods', left: 'Cards only, or UPI in USD', right: 'UPI, cards, netbanking, wallets — whatever your viewers use' },
                 { feature: 'Server location', left: 'US / EU', right: 'Mumbai, India' },

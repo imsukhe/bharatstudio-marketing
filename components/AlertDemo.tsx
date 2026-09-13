@@ -6,10 +6,10 @@ import { AlertCard } from './AlertCard'
 /* Sample data — same content as the legacy homepage demo widget. */
 const SAMPLE_ALERTS = [
   { donor: 'Rohan', amount: 501, message: 'Op gameplay bhai 🔥 aur dikhao' },
+  { donor: 'KamalKing', amount: 2000, message: 'Legend stream. Teri fans from Delhi 🔥' },
   { donor: 'Priya', amount: 200, message: 'Best stream today! ❤️' },
   { donor: 'ArjunGG', amount: 1001, message: 'Keep grinding! Love from Pune 💪' },
   { donor: 'Siddharth', amount: 51, message: 'First tip ever! GG' },
-  { donor: 'KamalKing', amount: 2000, message: 'Legend stream. Teri fans from Delhi 🔥' },
 ]
 
 export function AlertDemoWidget() {
